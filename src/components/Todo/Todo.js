@@ -2,6 +2,7 @@
 import React from "react";
 import "./Todo.css"
 import TodoItem from "./TodoItem";
+import FormAdd from "./FormAdd";
 
 function Todo(){
     const generateId = () => Math.floor(Math.random() * 1000);
@@ -46,17 +47,7 @@ function Todo(){
                 <TodoItem item={i}/>
                 ))}
 
-                <form className="add text-center my-4">
-                    <label htmlFor="add" className="add text-light">
-                        Add a new todo:
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control m-auto"
-                        name="add"
-                        id="add"
-                    />
-                </form>
+                <FormAdd/>
 
             </div>
     )
