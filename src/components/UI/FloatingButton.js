@@ -3,10 +3,13 @@ import { useState } from "react";
 import "./FloatingButton.scss";
 
 const FloatingButton = () => {
+
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
+
     setChecked(!checked);
+    
   };
 
   const setUnchecked = () => {
