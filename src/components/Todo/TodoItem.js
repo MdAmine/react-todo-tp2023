@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 const TodoItem = (props) => {
@@ -7,7 +7,10 @@ const TodoItem = (props) => {
         <>
             <ul className="list-group todos mx-auto text-light">
                 <li
-                    className={`list-group-item d-flex justify-content-between align-items-center`}
+                    className={`list-group-item d-flex justify-content-between align-items-center ${
+                         !props.item.complete ? "" : "item-complete"
+
+                    }`}
                 >
                     <span>{props.item.todo}</span>
                     <div>
@@ -15,8 +18,9 @@ const TodoItem = (props) => {
                             style={{
                                 marginRight: "0.3em",
                             }}
-                            icon={faCheck}
+                             icon={props.item.complete ? faBan :faCheck}
                             className="pointer"
+                            onClick={()=> props.completeTodo(props.item.id)}
                         />
 
                         <FontAwesomeIcon

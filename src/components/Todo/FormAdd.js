@@ -1,7 +1,7 @@
 import React from "react";
 
-const FormAdd =() =>{
-    return(
+const FormAdd = () => {
+    return (
         <form className="add text-center my-4">
             <label htmlFor="add" className="add text-light">
                 Add a new todo:
@@ -15,4 +15,4 @@ const FormAdd =() =>{
         </form>
     )
 }
- export default FormAdd
+export default FormAdd
