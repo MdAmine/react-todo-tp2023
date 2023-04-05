@@ -9,11 +9,15 @@ import {
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import TodoList from "./components/UI/Todo/todo";
+import Login from "./components/UI/Login/login";
 
 function App() {
   return (
     <div className="container">
-      <header className="text-center text-light my-4">
+
+      <TodoList/>
+    {/*  <header className="text-center text-light my-4">
         <h1 className="mb-5">Todo List</h1>
         <input
           type="text"
@@ -85,8 +89,11 @@ function App() {
           name="add"
           id="add"
         />
-      </form>
+      </form>*/}
 
+
+
+      <Login/>
       {/* <form className="text-center my-4 text-light">
         <h1 className="mb-4">Login Form</h1>
         <input
@@ -106,7 +113,7 @@ function App() {
         </button>
       </form> */}
 
-      <FloatingButton />
+      
     </div>
   );
 }
