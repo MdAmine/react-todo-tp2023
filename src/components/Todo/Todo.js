@@ -1,10 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Todo.css"
 import TodoItem from "./TodoItem";
 import FormAdd from "./FormAdd";
 
 function Todo() {
     const generateId = () => Math.floor(Math.random() * 1000);
+
+
+
+
+
 
     const [todoItems, setTodoItems] = useState(
         [
@@ -31,10 +36,21 @@ function Todo() {
         ]
     )
 
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const [filteredTodoItems, setFilteredTodoItems] = useState(todoItems);
+
+     useEffect(() => {
+        const filteredItems = todoItems.filter((item) =>
+            item.todo.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredTodoItems(filteredItems);
+    }, [todoItems, searchTerm]);
+
 
     const completeTodoItem = (id) => {
         const newTodoItems = todoItems.map((item) =>
-            item.id == id ? {...item, complete: !item.complete} : item);
+            item.id === id ? {...item, complete: !item.complete} : item);
         setTodoItems(newTodoItems);
     }
 
@@ -62,11 +78,6 @@ function Todo() {
     };
 
 
-
-
-
-
-
     return (
         <div>
 
@@ -77,11 +88,20 @@ function Todo() {
                     className="form-control m-auto"
                     name="search"
                     placeholder="search todos"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
+
             </header>
-            {todoItems.map((i) => (
-                <TodoItem item={i} completeTodo={completeTodoItem} deleteItem={deleteTodoItem}
-                          updateItem={updateTodoItem}/>
+
+            {filteredTodoItems.map((item) => (
+                <TodoItem
+                    key={item.id}
+                    item={item}
+                    completeTodo={completeTodoItem}
+                    deleteItem={deleteTodoItem}
+                    updateItem={updateTodoItem}
+                />
             ))}
 
             <FormAdd add={addItem}/>
