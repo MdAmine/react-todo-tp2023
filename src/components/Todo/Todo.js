@@ -51,11 +51,20 @@ function Todo() {
             const newTodoItems = todoItems.map((i) => i.id === item.id ? {...i, todo: itesmTodo} : i)
             setTodoItems(newTodoItems);
         }
-
-
-
-
     }
+    const addItem = (newTodo) => {
+        const newTodoItem = {
+            id: generateId(),
+            todo: newTodo,
+            complete: false
+        };
+        setTodoItems([...todoItems, newTodoItem]);
+    };
+
+
+
+
+
 
 
     return (
@@ -75,7 +84,7 @@ function Todo() {
                           updateItem={updateTodoItem}/>
             ))}
 
-            <FormAdd/>
+            <FormAdd add={addItem}/>
 
         </div>
     )
