@@ -1,0 +1,8 @@
+.content{
+
+    border: 1px solid black;
+    width: 300px;
+    height: auto;
+    background-color: aliceblue;
+    margin: 10px;
+}

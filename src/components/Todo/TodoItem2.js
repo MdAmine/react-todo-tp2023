@@ -1,13 +1,27 @@
 import {
   faCheck,
+  faEye,
   faPenToSquare,
   faTrashAlt,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useNavigate } from "react-router-dom";
 function TodoItem2(props) {
 
+  
+  const handlePrompt = (id,value) =>{
 
+    let item = prompt("Please enter your value", value);
+    if (item != null) {
+       props.updateTodoItem(id,item)
+    }
+  }
+
+  const navigate = useNavigate();
+  const goToDetail = (id,todo,complete) => {
+    navigate("/detail/"+id);
+  };
 
   return (
     <ul className="list-group todos mx-auto text-light">
@@ -29,8 +43,20 @@ function TodoItem2(props) {
             style={{
               marginRight: "0.3em",
             }}
+            icon={ faEye }
+            className="pointer"
+            component={Link} 
+            to="/about"
+            onClick={() => goToDetail(props.item.id)}
+          />
+
+          <FontAwesomeIcon
+            style={{
+              marginRight: "0.3em",
+            }}
             icon={faPenToSquare}
             className="pointer"
+            onClick={() =>handlePrompt(props.item.id,props.item.todo)}
           />
           <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => props.deleteTodoItem(props.item.id)}/>
         </div>

@@ -1,8 +1,16 @@
+import { useRef } from "react";
+function FormAdd(props) {
 
-function FormAdd() {
+    const inputRef = useRef();
+    const addItem= (e) =>{
+        e.preventDefault();
+        props.addTodoItem(inputRef.current.value)
+        inputRef.current.value=""
+
+    };
 
     return (
-        <form className="add text-center my-4">
+        <form className="add text-center my-4" onSubmit={addItem}>
             <label htmlFor="add" className="add text-light">
             Add a new todo:
             </label>
@@ -10,7 +18,9 @@ function FormAdd() {
             type="text"
             className="form-control m-auto"
             name="add"
-            id="add"
+            id="add" 
+            ref={inputRef}
+             
             />
         </form>
     );
