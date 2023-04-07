@@ -26,7 +26,7 @@ function Todo(props) {
     const newTodoItems = todosContext.todoItems.map((item) =>
       item.id === id ? { ...item, complete: !item.complete } : item
     );
-
+    newTodoItems.sort((a, b) => a.complete - b.complete);
     todosContext.setTodoItems(newTodoItems);
   };
 
