@@ -23,3 +23,6 @@ li.list-group-item {
 .item-complete {
   background-color: #3c3b45 !important;
 }
+.totoChecked{
+  color: #f8f9fa;
+}
