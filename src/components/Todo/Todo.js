@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useContext, useState } from "react";
 import TodoItem from "./TodoItem";
 import Form from "../Form/Form";
@@ -11,34 +12,19 @@ const Todo = () => {
   const [searchTerm, setSearchTerm] = useState("");
   let navigate = useNavigate();
   const context = useContext(TodoContext);
-  // const [todoItems, setTodoItems] = useState([
-  //   {
-  //     id: generateId(),
-  //     todo: "Read books",
-  //     complete: false,
-  //   },
-  //   {
-  //     id: generateId(),
-  //     todo: "Journaling",
-  //     complete: false,
-  //   },
-  //   {
-  //     id: generateId(),
-  //     todo: "Make Dinner",
-  //     complete: false,
-  //   },
-  //   {
-  //     id: generateId(),
-  //     todo: "Push-ups",
-  //     complete: false,
-  //   },
-  // ]);
+
   const updateCompleteItems = (id) => {
     const newTodoItems = context.todoItems.map((item) => {
       if (item.id === id) {
         return { ...item, complete: !item.complete };
       }
+
       return item;
+    });
+    newTodoItems.sort((a, b) => {
+      if (a.id === id) return 1;
+      if (b.id === id) return -1;
+      return 0;
     });
     context.setTodoItems(newTodoItems);
   };
