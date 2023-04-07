@@ -16,6 +16,8 @@ function Todo(props) {
   const cunt = todosContext.todoItems.filter((item) => item.complete === false);
 
   useEffect(() => {
+    todosContext.todoItems.sort((a, b) => a.complete - b.complete)
+
     const filteredItems = todosContext.todoItems.filter((item) =>
       item.todo.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -26,7 +28,7 @@ function Todo(props) {
     const newTodoItems = todosContext.todoItems.map((item) =>
       item.id === id ? { ...item, complete: !item.complete } : item
     );
-    newTodoItems.sort((a, b) => a.complete - b.complete);
+
     todosContext.setTodoItems(newTodoItems);
   };
 
@@ -44,6 +46,7 @@ function Todo(props) {
       const newTodoItems = todosContext.todoItems.map((i) =>
         i.id === item.id ? { ...i, todo: itesmTodo } : i
       );
+
       todosContext.setTodoItems(newTodoItems);
     }
   };
@@ -53,6 +56,7 @@ function Todo(props) {
       todo: newTodo,
       complete: false,
     };
+
     todosContext.setTodoItems([...todosContext.todoItems, newTodoItem]);
   };
 
