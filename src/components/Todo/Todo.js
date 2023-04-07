@@ -12,7 +12,9 @@ const Todo = () => {
   const [searchTerm, setSearchTerm] = useState("");
   let navigate = useNavigate();
   const context = useContext(TodoContext);
-
+  const itemsCoches = context.todoItems.filter(
+    (item) => item.complete === true
+  );
   const updateCompleteItems = (id) => {
     const newTodoItems = context.todoItems.map((item) => {
       if (item.id === id) {
@@ -95,6 +97,9 @@ const Todo = () => {
           viewItems={viewDetailsItem}
         />
       ))}
+      <p className="element-checked">
+        Éléments cochés : {itemsCoches.length} / {context.todoItems.length}
+      </p>
       <Form
         addItem={addTodoItem}
         newTodoItem={newTodo}

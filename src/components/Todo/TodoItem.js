@@ -30,7 +30,7 @@ const TodoItem = (props) => {
               style={{
                 marginRight: "0.3em",
               }}
-              icon={props.todoItem.complete ? faCheck : faXmark}
+              icon={props.todoItem.complete ? faXmark : faCheck}
               className="pointer"
               onClick={() => props.updateCompleteItems(props.todoItem.id)}
             />
