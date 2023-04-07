@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBan, faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faCheck, faEye, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import {Link} from "react-router-dom";
 import './todoItems.css'
@@ -33,6 +33,12 @@ function TodoItem(props) {
                             onClick={() => props.completeTodoItem(props.item.id)}
 
                         />
+                        <FontAwesomeIcon
+                            style={{
+                                marginRight: "0.3em"
+                            }}
+                            icon={faEye}>
+                        </FontAwesomeIcon>
 
                         <FontAwesomeIcon
                             style={{
