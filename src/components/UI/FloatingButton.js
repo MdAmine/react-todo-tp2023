@@ -1,8 +1,8 @@
-import { useState } from "react";
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./FloatingButton.scss";
 
-const FloatingButton = () => {
+const FloatingButton = ({ handleLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -11,6 +11,11 @@ const FloatingButton = () => {
 
   const setUnchecked = () => {
     setChecked(false);
+  };
+
+  const handleLogoutClick = () => {
+    setChecked(false);
+    handleLogout();
   };
 
   return (
@@ -25,11 +30,16 @@ const FloatingButton = () => {
       <nav className="nav">
         <ul>
           <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
+          <Link to="/about">
+            <span>About</span>
+          </Link>
+          <Link to="/">
+            <span onClick={handleLogoutClick}>Logout</span>
+          </Link>
         </ul>
       </nav>
     </div>
   );
 };
+
 export default FloatingButton;
