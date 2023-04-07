@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faBaby,
   faCheck,
+  faInfoCircle,
   faPenToSquare,
   faTrashAlt,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = (props) => {
@@ -11,7 +12,9 @@ const TodoItem = (props) => {
     <>
       <ul className="list-group todos mx-auto text-light">
         <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
+          className={`list-group-item d-flex justify-content-between align-items-center ${
+            props.todoItem.complete === true ? "item-complete" : ""
+          }`}
         >
           <span>{props.todoItem.todo}</span>
           <div>
@@ -19,9 +22,17 @@ const TodoItem = (props) => {
               style={{
                 marginRight: "0.3em",
               }}
-              icon={props.todoItem.complete ? faCheck:faBaby}
+              icon={faInfoCircle}
               className="pointer"
-              onClick={() => props.updateItems(props.todoItem.id)}
+              onClick={() => props.viewItems(props.todoItem.id)}
+            />
+            <FontAwesomeIcon
+              style={{
+                marginRight: "0.3em",
+              }}
+              icon={props.todoItem.complete ? faCheck : faXmark}
+              className="pointer"
+              onClick={() => props.updateCompleteItems(props.todoItem.id)}
             />
 
             <FontAwesomeIcon
@@ -30,8 +41,15 @@ const TodoItem = (props) => {
               }}
               icon={faPenToSquare}
               className="pointer"
+              onClick={() =>
+                props.editItems(props.todoItem.id, props.todoItem.todo)
+              }
             />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              className="pointer"
+              onClick={() => props.deleteItems(props.todoItem.id)}
+            />
           </div>
         </li>
       </ul>
