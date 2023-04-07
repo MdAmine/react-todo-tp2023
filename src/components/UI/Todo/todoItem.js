@@ -1,4 +1,4 @@
-import { faBaby, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBaby, faBan, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TodoItem(props){
@@ -18,7 +18,7 @@ function TodoItem(props){
                             style={{
                                 marginRight: "0.3em",
                             }}
-                            icon={props.todo.complete?  faBaby: faCheck}
+                            icon={props.todo.complete?  faBan: faCheck}
                             className="pointer"
                             onClick={() => (props.completeItems(props.todo.id))}
                         />
@@ -29,12 +29,19 @@ function TodoItem(props){
                             }}
                             icon={faPenToSquare}
                             className="pointer"
+                            onClick={() => {props.handleUpdate(props.todo);
+                                            console.log("item: ",props.todo)
+                                }}
                         />
-                        <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+                        
+                        <FontAwesomeIcon 
+                            icon={faTrashAlt} 
+                            className="pointer" 
+                            onClick={() => (props.handleDelete(props.todo.id))}/>
                     </div>
                 </li>
             </ul>
         </>
     );
 }
-export default TodoItem;
+export default TodoItem;  

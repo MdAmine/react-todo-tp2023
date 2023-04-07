@@ -1,121 +1,35 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import TodoList from "./components/UI/Todo/todo";
 import Login from "./components/UI/Login/login";
+import Home from "./components/UI/Home/home";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom"
+import TodoList from "./components/UI/Todo/todo";
+import FloatingButton from "./components/UI/FloatingButton";
+import About from "./components/UI/About/about";
+import { TodoContext } from "./components/UI/context/TodoContext";
+
 
 function App() {
-  return (
-    <div className="container">
 
-      <TodoList/>
-    {/*  <header className="text-center text-light my-4">
-        <h1 className="mb-5">Todo List</h1>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="search"
-          placeholder="search todos"
-        />
-      </header>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Read Books</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Sport</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <form className="add text-center my-4">
-        <label htmlFor="add" className="add text-light">
-          Add a new todo:
-        </label>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="add"
-          id="add"
-        />
-      </form>*/}
-
-
-
-      <Login/>
-      {/* <form className="text-center my-4 text-light">
-        <h1 className="mb-4">Login Form</h1>
-        <input
-          type="text"
-          className={`form-control mb-2`}
-          id="email"
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          className={`form-control mb-3`}
-          id="password"
-          placeholder="Enter your Password"
-        />
-        <button type="submit" className="btn btn-dark">
-          Login
-        </button>
-      </form> */}
-
-      
-    </div>
-  );
+ 
+    return (
+      //<TodoContext.Provider value={{ todoItems, setTodoItems }} >
+        <div className="container">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" setIsLoggedIn={setIsLoggedIn} element={<Home />} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/about" element={<About />} />
+              <Route exact path="/todolist" element={<TodoList />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      //</TodoContext.Provider>
+    );
+  
 }
 
 export default App;

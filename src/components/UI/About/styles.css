@@ -1,0 +1,18 @@
+.tods > li {
+    font-size: 20px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+
+  }
+  .todos{
+    background-color: #f2f2f2;
+  }
+
+  .back{ 
+    position: 'absolute';
+    top: 0;
+    left: 0;
+ }
