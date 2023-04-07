@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Todo = () => {
   const navigate = useNavigate();
   let context = useContext(DetailContext);
-  let todoItems = context.todoList
+  let todoItems = context.todoList;
   const [todoItemsCopy, setTodoItemsCopy] = useState(todoItems);
 
   const completeTodoItem = (id) => {
@@ -41,7 +41,10 @@ const Todo = () => {
 
   const addTodoItem = (event, newTodo) => {
     event.preventDefault();
-    const newList = [...todoItems, { id: Math.floor(Math.random() * 1000), todo: newTodo, complete: false }];
+    const newList = [
+      ...todoItems,
+      { id: Math.floor(Math.random() * 1000), todo: newTodo, complete: false },
+    ];
     context.setTodoItems(newList);
   };
 
@@ -67,6 +70,12 @@ const Todo = () => {
           updateTodoItem={updateTodoItem}
         />
       ))}
+
+      <div style={{ color: "white", padding: 5 }}>
+        Finished tasks :{" "}
+        {todoItems.filter((item) => item.complete === true).length}/
+        {todoItems.length}{" "}
+      </div>
       <TodoAdd addTodoItem={addTodoItem} />
     </>
   );
