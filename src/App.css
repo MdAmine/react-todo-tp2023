@@ -33,6 +33,8 @@ li.list-group-item {
   cursor: pointer;
 }
 
+
 .item-complete {
+  text-decoration: line-through;
   background-color: #3c3b45 !important;
 }

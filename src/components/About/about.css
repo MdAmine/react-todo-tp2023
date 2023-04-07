@@ -1,0 +1,9 @@
+div{
+color: aliceblue;
+}
+.Content{
+display: flex;
+flex-direction: row;
+flex-wrap:wrap;
+
+}
