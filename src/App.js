@@ -72,6 +72,7 @@ function App() {
           <DetailContext.Provider
             value={{
               todoList: todoItems,
+              setTodoItems: setTodoItems
             }}
           >
             <Routes>

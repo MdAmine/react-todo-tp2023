@@ -36,8 +36,8 @@ const TodoItem = (props) => {
               icon={faEye}
               className="pointer"
               onClick={() => {
-                console.log('id ' +  props.item.id )
-                navigate("/detail/"+ props.item.id)}}
+                navigate("/detail/" + props.item.id);
+              }}
             />
 
             <FontAwesomeIcon
@@ -46,7 +46,7 @@ const TodoItem = (props) => {
               }}
               icon={faPenToSquare}
               className="pointer"
-              onClick={() => props.updateTodoItem(props.item.id)}
+              onClick={() => props.updateTodoItem(props.item)}
             />
 
             <FontAwesomeIcon
