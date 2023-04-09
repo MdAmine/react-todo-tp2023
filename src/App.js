@@ -1,57 +1,63 @@
-import React, { useState, createContext } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import Todo from "./Todo";
-import Login from "./Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from "./About";
 import FloatingButton from "./components/UI/FloatingButton";
-import Details from "./Details";
-import TodoDetails from "./TodoDetails";
-import ContexteSaad from "./ContexteSaad";
-
-
-
+import Login from "./components/Login/Login";
+import { BrowserRouter,Routes,Route,Navigate } from "react-router-dom";
+import ContextTodo from "./components/contexte/ContextTodo";
+import About from "./components/About/About"
+import Todo from "./components/Todo/Todo"
+import Detail from "./components/Detail/Detail"
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [todoItems, setTodoItems] = useState([
+  const [loginIn, setlogin] = useState(false);
+  const logout = () => {
+    setlogin(false);
+  };
+  const loginn = () => {
+    setlogin(true);
+  };
+  const generateId = () => Math.floor(Math.random() * 1000);
+  const [todoItems, settodoItems] = useState([
     {
-      id: 1,
+      id: generateId(),
       todo: "Read books",
       complete: false,
     },
     {
-      id: 2,
+      id: generateId(),
       todo: "Journaling",
       complete: false,
     },
     {
-      id: 3,
+      id: generateId(),
       todo: "Make Dinner",
       complete: false,
     },
     {
-      id: 4,
+      id: generateId(),
       todo: "Push-ups",
       complete: false,
     },
   ]);
-
-  const handleLogout = () => {
-    setLoggedIn(false);
-  };
-
   return (
     <BrowserRouter>
       <div className="container">
-        <ContexteSaad.Provider value={{ loggedIn, setLoggedIn, todoItems, setTodoItems }}>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/todo" element={<Todo handleLogout={handleLogout} />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-          {loggedIn && <FloatingButton handleLogout={handleLogout} />}
-        </ContexteSaad.Provider>
+        <ContextTodo.Provider value={{todoItems,settodoItems}}>
+          {loginIn ? (
+            <>
+              <FloatingButton logout={logout} />
+
+              <Routes>
+      <Route path="*" element={<Navigate replace to="/todo" />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/todo" element={<Todo />} />
+      <Route path="/detail/:id/:n/:c" element={<Detail />} />
+    </Routes>
+            </>
+          ) : (
+            <Login loginn={loginn} />
+          )}
+        </ContextTodo.Provider>
       </div>
     </BrowserRouter>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./FloatingButton.scss";
 
-const FloatingButton = ({ handleLogout }) => {
+const FloatingButton = ({ logout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -15,7 +15,8 @@ const FloatingButton = ({ handleLogout }) => {
 
   const handleLogoutClick = () => {
     setChecked(false);
-    handleLogout();
+    localStorage.clear();
+    logout();
   };
 
   return (
@@ -28,14 +29,17 @@ const FloatingButton = ({ handleLogout }) => {
       />
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
-        <ul>
-          <span>Todo List</span>
-          <Link to="/about">
-            <span>About</span>
+        <ul >
+          <br />
+          <Link to="/todo" style={{textDecoration:"none"}}>
+            <span>Todo List</span>
           </Link>
-          <Link to="/">
-            <span onClick={handleLogoutClick}>Logout</span>
+          <br />
+          <Link to="/about" style={{textDecoration:"none"}}>
+            <span> About</span>
           </Link>
+          <br />
+          <span onClick={handleLogoutClick}>Logout</span>
         </ul>
       </nav>
     </div>
