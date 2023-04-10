@@ -1,18 +1,24 @@
 import {useParams} from "react-router-dom";
-import React from "react";
+import React, {useContext} from "react";
+import Context from "../contexte/Context";
 
 const Detail=()=>{
-    console.log("hjjh")
-    const {id} = useParams()
-    const {todo} = useParams()
-    const {complete} = useParams()
-console.log(id,todo,complete)
+
+    const {detailItem}= useContext(Context);
+    const param = useParams();
+
+    const result = detailItem(param.id)
+
+
     return (
-            <>
-                <h1>Detail item {id}</h1>
-                <h2>{todo}</h2>
-                <h2>{complete}</h2>
-            </>
+            <div style={{textDecoration: 'none', color: 'white'}}>
+                <h5>ID : {result.id}</h5>
+                <h5>Todo: {result.todo}</h5>
+                <h5>Priority: {result.priority}</h5>
+                <h5>Completed: {result.complete ? "completed" : "Not yet"}</h5>
+                <h5>created AT : {new Date(result.createAT).toString()}</h5>
+                <h5>Last modif AT: {new Date(result.updateAT).toString()}</h5>
+            </div>
         );
 }
 export  default Detail;

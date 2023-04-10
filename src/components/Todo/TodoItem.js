@@ -1,11 +1,11 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBan, faCheck, faEye, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faCheck, faEye, faFlag, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import './todoItems.css'
 
 function TodoItem(props) {
-
+    let navigate = useNavigate()
     return (
         <>
             <ul className="list-group todos mx-auto text-light">
@@ -16,12 +16,21 @@ function TodoItem(props) {
                     }}
                     className={`list-group-item d-flex justify-content-between align-items-center`}
                 >
-                    <Link
-                       style={{textDecoration:'none',color:'white'}}
-                        to={`/detail/${props.item.id}/${props.item.todo}/${props.item.complete}`}>
-                        <span>{props.item.todo}</span>
-                    </Link>
+                    <span>{props.item.todo}</span>
+
                     <div>
+                        <FontAwesomeIcon
+                            icon={faFlag}
+                            style={{
+                                marginRight: "0.3em",
+                                color:
+                                    props.item.priority === 1
+                                        ? "red"
+                                        : props.item.priority === 2
+                                            ? "yellow"
+                                                : "white"
+                            }}
+                        />
                         <FontAwesomeIcon
                             style={{
 
@@ -37,9 +46,9 @@ function TodoItem(props) {
                             style={{
                                 marginRight: "0.3em"
                             }}
+                            onClick={() => navigate(`/detail/${props.item.id}`)}
                             icon={faEye}>
                         </FontAwesomeIcon>
-
                         <FontAwesomeIcon
                             style={{
                                 marginRight: "0.3em"

@@ -23,25 +23,40 @@ function App() {
             id: generateId(),
             todo: "Read books",
             complete: false,
+            priority:3,
+            createAT:new Date(2023, 4, 25, 12, 30),
+            updateAT:new Date()
         },
         {
             id: generateId(),
             todo: "Journaling",
             complete: false,
+            priority:1,
+            createAT:new Date(2023, 4, 25, 12, 33),
+            updateAT:new Date()
         },
         {
             id: generateId(),
             todo: "Make Dinner",
             complete: false,
+            priority:2,
+            createAT:new Date(2023, 4, 25, 12, 38),
+            updateAT:new Date()
         },
         {
             id: generateId(),
             todo: "Push-ups",
             complete: false,
+            priority:1,
+            createAT:new Date(2023, 4, 25, 12, 50),
+            updateAT:new Date()
         },
     ]);
+    const detailItem = (id) =>{
+        return   todoItems.find(item => item.id === parseInt(id));
+    }
     return (
-        <Context.Provider value={{todoItems, setTodoItems}}>
+        <Context.Provider value={{todoItems, setTodoItems,detailItem}}>
             <div className="container">
                     {user ? (
                         <div>
@@ -49,7 +64,7 @@ function App() {
                                 <Route path="/todo" element={<Todo/>}/>
                                 <Route path="/todoList" element={<ToDoList/>}/>
                                 <Route path="/about" element={<About/>}/>
-                                <Route path="/detail/:id/:todo/:complete" element={<Detail/>}/>
+                                <Route path="/detail/:id" element={<Detail/>}/>
                             </Routes>
                         </div>
                     ) : (

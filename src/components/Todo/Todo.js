@@ -7,6 +7,7 @@ function Todo() {
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [newItemTodo, setNewItemTodo] = useState("");
+    const [newItemPriority, setNewItemPriority] = useState(3);
     const [countCheckedList, setCountCheckedList] = useState(0)
 
     const {todoItems, setTodoItems} = useContext(Context);
@@ -26,29 +27,34 @@ function Todo() {
         const itemToUpdate = todoItems.find(item => item.id === id);
         console.log(itemToUpdate)
         const updatedText = prompt("Enter new Todo:", itemToUpdate.todo);
+        const updatedPriority = prompt("Change Priority:", itemToUpdate.priority);
         if (updatedText !== null && updatedText !== "") {
             const updatedItems = todoItems.map(item => {
                 if (item.id === id) {
-                    return {...item, todo: updatedText};
+                    const dateItemUpdate = new Date().getTime();
+                    return {...item, todo: updatedText,updateAT:dateItemUpdate,priority :+updatedPriority};
                 }
                 return item;
             });
             setTodoItems(updatedItems);
         }
     }
+
     useEffect(() => {
             const result = todoItems.filter(item => item.todo.toLowerCase().includes(searchTerm.toLowerCase()));
             setFilteredItems(result);
         },
-        [filteredItems]
+        [todoItems,searchTerm]
     );
 
     function addItem(event) {
         event.preventDefault();
         const newId = todoItems.length + 1;
-        const newItem = {id: newId, todo: newItemTodo};
+        const dateItem = new Date().getTime();
+        const newItem = {id: newId, todo: newItemTodo, createAT:dateItem, complete:false,priority:+newItemPriority};
         setTodoItems([...todoItems, newItem]);
         setNewItemTodo("");
+        console.log(newItem)
     }
 
     return (
@@ -64,6 +70,7 @@ function Todo() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </header>
+
             {filteredItems.map(
                 (i) => <TodoItem
                     key={i.id}
@@ -79,6 +86,14 @@ function Todo() {
                 <label htmlFor="add" className="add text-light">
                     Add a new todo:
                 </label>
+
+                <input
+                    type="text"
+                    value={newItemPriority}
+                    onChange={(e) => setNewItemPriority(e.target.value)}
+                    min="1"
+                    max ="3"
+                />
                 <input
                     type="text"
                     className="form-control m-auto"
@@ -86,7 +101,12 @@ function Todo() {
                     id="add"
                     value={newItemTodo}
                     onChange={(e) => setNewItemTodo(e.target.value)}
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            addItem(e);
+                        }}}
                 />
+
             </form>
 
         </>
