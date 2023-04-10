@@ -54,9 +54,12 @@ const Todo = () => {
     ctx.setTodo([...ctx.todo, newItem]);
   };
   const filterByPriority=(priority) =>{
-    const newTodoItems = ctx.todo.filter((item) => item.priority == priority);
-    setFilteredTodos(newTodoItems);
-    console.log(newTodoItems);
+    if(priority!=null){
+      const newTodoItems = ctx.todo.filter((item) => item.priority == priority);
+      setFilteredTodos(newTodoItems);
+      console.log(newTodoItems);
+    }else setFilteredTodos(ctx.todo);
+    
   }
 
   return (
@@ -78,6 +81,12 @@ const Todo = () => {
       </header>
 
       <div className="input-group mt-2">
+      <button
+          onClick={() => filterByPriority()}
+          className="form-control btn btn-light btn-sm"
+        >
+          All
+        </button>
         <button
           onClick={() => filterByPriority(1)}
           className="form-control btn btn-danger btn-sm"
