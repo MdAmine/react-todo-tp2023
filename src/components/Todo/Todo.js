@@ -30,8 +30,12 @@ const Todo = () => {
     const updateedItem = ctx.todo.map((item) => {
       if (item.id == id) {
         console.log("updated");
-        return { ...item, todo: newItem, updatedAt: updatedAT,priority:updatedPriority };
-     
+        return {
+          ...item,
+          todo: newItem,
+          updatedAt: updatedAT,
+          priority: updatedPriority,
+        };
       }
       return item;
     });
@@ -49,6 +53,11 @@ const Todo = () => {
   const addTodoItem = (newItem) => {
     ctx.setTodo([...ctx.todo, newItem]);
   };
+  const filterByPriority=(priority) =>{
+    const newTodoItems = ctx.todo.filter((item) => item.priority == priority);
+    setFilteredTodos(newTodoItems);
+    console.log(newTodoItems);
+  }
 
   return (
     <>
@@ -68,6 +77,33 @@ const Todo = () => {
         />
       </header>
 
+      <div className="input-group mt-2">
+        <button
+          onClick={() => filterByPriority(1)}
+          className="form-control btn btn-danger btn-sm"
+        >
+          P1
+        </button>
+        <button
+          onClick={() => filterByPriority(2)}
+          className="form-control btn btn-warning btn-sm"
+        >
+          P2
+        </button>
+        <button
+          onClick={() => filterByPriority(4)}
+          className="form-control btn btn-primary btn-sm"
+        >
+          P3
+        </button>
+        <button
+          onClick={() => filterByPriority(3)}
+          className="form-control btn btn-success btn-sm"
+        >
+          P4
+        </button>
+      </div>
+
       {filteredTodos.map((i) => (
         <TodoItems
           key={i.id}
@@ -82,7 +118,7 @@ const Todo = () => {
       <p
         style={{
           marginTop: "20px",
-          textAlign:"center"
+          textAlign: "center",
         }}
       >
         {" "}
