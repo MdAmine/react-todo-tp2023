@@ -9,12 +9,47 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const TodoItem = props => {
+  const priority = i => {
+    if (i === 3) {
+      return (
+        <span class="badge bg-pill bg-success">
+          p{props.item.priority}
+        </span>
+      );
+    }
+    if (i === 4) {
+      return (
+        <span class="badge bg-pill bg-warning">
+          p{props.item.priority}
+        </span>
+      );
+    }
+    if (i === 1) {
+      return (
+        <span class="badge bg-pill bg-danger">
+          p{props.item.priority}
+        </span>
+      );
+    }
+
+    if (i === 2) {
+      return (
+        <span class="badge bg-pill bg-primary">
+          p{props.item.priority}
+        </span>
+      );
+    }
+  };
+
   return (
     <ul className="list-group todos mx-auto text-light">
       <li
         className={`list-group-item d-flex justify-content-between align-items-center ${props.item.complete ? 'item-complete myClass classita' : ''}`}
       >
         <span>{props.item.todo}</span>
+        <div>
+          {priority (props.item.priority)}
+        </div>
         <div>
           {props.item.complete
             ? <FontAwesomeIcon

@@ -16,23 +16,37 @@ function App() {
       id: generateId(),
       todo: 'Read books',
       complete: false,
+      createdAt:new Date (2023,3, 10, 8, 55),
+      updatedAt: new Date(2023, 3, 10, 8, 55),
+      priority:1
     },
     {
       id: generateId(),
       todo: 'Journaling',
       complete: false,
+      createdAt:new Date (2023,3, 10, 8, 55),
+      updatedAt: new Date(2023, 3, 10, 8, 55),
+      priority: 2
+
     },
     {
       id: generateId(),
       todo: 'Make Dinner',
       complete: false,
+      createdAt:new Date (2023,3, 10, 8, 55),
+      updatedAt: new Date(2023, 3, 10, 8, 55),
+      priority: 3
     },
     {
       id: generateId(),
       todo: 'Push-ups',
       complete: false,
+      createdAt:new Date (2023,3, 10, 8, 55),
+      updatedAt: new Date(2023, 3, 10, 8, 55),
+      priority: 4
     },
   ]);
+  
   return (
     <TodoContext.Provider value={{
       items: todoItems,
