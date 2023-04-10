@@ -29,6 +29,10 @@ li.list-group-item {
   color: #f8f9fa;
 }
 
+li.list-group-item:hover{
+  background-color: #6b5eb0;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -143,3 +147,4 @@ img {
     margin: 1rem;
   }
 }
+

@@ -1,10 +1,11 @@
-import { faBaby, faBan, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoProvider";
 
-function TodoItem(props){
-    const { todo } = props;
+function TodoItem({ todo }){
 
-
+    const { completeItems, handleUpdate, handleDelete } = useContext(TodoContext)
 
     return (
         <>
@@ -18,9 +19,9 @@ function TodoItem(props){
                             style={{
                                 marginRight: "0.3em",
                             }}
-                            icon={props.todo.complete?  faBan: faCheck}
+                            icon={todo.complete?  faBan: faCheck}
                             className="pointer"
-                            onClick={() => (props.completeItems(props.todo.id))}
+                            onClick={() => (completeItems(todo.id))}
                         />
 
                         <FontAwesomeIcon
@@ -29,15 +30,15 @@ function TodoItem(props){
                             }}
                             icon={faPenToSquare}
                             className="pointer"
-                            onClick={() => {props.handleUpdate(props.todo);
-                                            console.log("item: ",props.todo)
+                            onClick={() => {handleUpdate(todo);
+                                            console.log("item: ",todo)
                                 }}
                         />
                         
                         <FontAwesomeIcon 
                             icon={faTrashAlt} 
                             className="pointer" 
-                            onClick={() => (props.handleDelete(props.todo.id))}/>
+                            onClick={() => (handleDelete(todo.id))}/>
                     </div>
                 </li>
             </ul>

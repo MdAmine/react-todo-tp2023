@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import images from './image.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const Modal = (props ) => {
 
   const [add, setAdd] = useState('');
+
+  const [todo, setTodo] = useState(props.editingTodo);
+  const [isOpen, setIsOpen] = useState(false);
 
   //console.log("aaaaa ",props.editingTodo);
   
@@ -18,6 +22,8 @@ const Modal = (props ) => {
     const value = e.target.value;
     setAdd(value);
   }
+
+  const navigate = useNavigate();
 
   if (!props.open) return null;
   return (
@@ -42,7 +48,7 @@ const Modal = (props ) => {
                     className="form-control m-auto"
                     name="add"
                     id="add"
-                    value={add}
+                    value={todo.todo}
                     onChange={(e) => handleChange(e)}
                 />
             </form>
