@@ -32,7 +32,9 @@ li.list-group-item {
 .pointer {
   cursor: pointer;
 }
-
+.priority{
+  display: flex;
+}
 
 .item-complete {
   text-decoration: line-through;

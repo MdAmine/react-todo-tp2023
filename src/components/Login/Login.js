@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
@@ -13,9 +13,13 @@ const Login = ({ setUser }) => {
     handleLogin({ email, password });
   };
   
-  if (localStorage.getItem("email")) {
-    setUser(true);
-  }
+  
+
+  useEffect(()=>{
+    if (localStorage.getItem("email")) {
+      setUser(true);
+    }
+  },[])
  
   const handleLogin = ({ email, password }) => {
     if (email === "admin@gmail.com" && password === "admin") {

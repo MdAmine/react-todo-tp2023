@@ -18,21 +18,33 @@ function App() {
       id: generateId(),
       todo: "Read books",
       complete: false,
+      priority:1,
+      createdAT:"",
+      updatedAt:""
     },
     {
       id: generateId(),
       todo: "Journaling",
       complete: false,
+      priority:4,
+      createdAT:"",
+      updatedAt:""
     },
     {
       id: generateId(),
       todo: "Make Dinner",
       complete: false,
+      priority:2,
+      createdAT:"",
+      updatedAt:""
     },
     {
       id: generateId(),
       todo: "Push-ups",
       complete: false,
+      priority:3,
+      createdAT:"",
+      updatedAt:""
     },
   ]);
 
@@ -52,7 +64,7 @@ function App() {
         {user ? (
           <div>
             <Routes>
-              <Route path="/*" element={<App />} />
+              <Route path="/*" element={<Todo />} />
 
               <Route path="todo" element={<Todo />} />
               <Route path="about" element={<About />} />
@@ -60,12 +72,13 @@ function App() {
               {/* <Route path="login" element={<App />} /> */}
 
             </Routes>
+            <FloatingButton logout={logout} />
+
           </div>
         ) : (
           <Login setUser={setUser} />
         )}
 
-        <FloatingButton logout={logout} />
       </div>
     </TodoContext.Provider>
   );

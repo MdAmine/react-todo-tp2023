@@ -6,23 +6,38 @@ import {
   faTrashAlt,
   faBan,
   faEye,
+  faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-// import { useHistory } from 'react-router-dom';
 const TodoItems = (props) => {
   let navigation = useNavigate();
-  // const history = useHistory();
 
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
         <li
-          
           className={`list-group-item d-flex justify-content-between align-items-center ${
             !props.item.complete ? "" : "item-complete"
           }`}
+          key={props.item.id}
         >
+          <span>
+            <FontAwesomeIcon
+              icon={faFlag}
+              style={{
+                color:
+                  props.item.priority == 1
+                    ? "red"
+                    : props.item.priority === 2
+                    ? "yellow"
+                    : props.item.priority === 3
+                    ? "green"
+                    : "blue",
+              }}
+            />
+          </span>
           <span>{props.item.todo}</span>
+
           <div>
             <FontAwesomeIcon
               style={{

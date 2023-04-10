@@ -16,8 +16,11 @@ const TodoDetail = () => {
             <h5>ID : {item.id}</h5>
             <h5>Todo: {item.todo}</h5>
             <h5>Completed: {item.complete ? "completed" : "Not yet"}</h5>
+            <h5>Priority : {item.priority}</h5>
+            <h5>created At : { item.createdAT ? new Date(item.createdAT).toLocaleString('en-US')  : " No date"}</h5>
+            <h5>updated At : {item.updatedAt ? new Date(item.updatedAt).toLocaleString('en-US') : " No date"}</h5>
             <button className="btn btn-dark mt-4"
-            onClick={navigation('/todo')}>Back</button>
+            onClick={()=>navigation('/todo')}>Back</button>
         </div>
     )
 }

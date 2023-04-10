@@ -5,8 +5,6 @@ import TodoContext from "../Context/TodoContext";
 
 const Todo = () => {
   let ctx = useContext(TodoContext);
-  // const [countComplet,setCountComplet]=useState(0);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [results, setResults] = useState([]);
@@ -15,10 +13,6 @@ const Todo = () => {
     const newTodoItem = ctx.todo.map((item) =>
       item.id === id ? { ...item, complete: !item.complete } : item
     );
-    // const completedItems = ctx.todo.filter(item => item.completed);
-    // setCountComplet(completedItems.length);
-
-    // console.log(countComplet);
 
     ctx.setTodo(newTodoItem);
   };
@@ -30,9 +24,14 @@ const Todo = () => {
 
   const updateItem = (id) => {
     const newItem = prompt("Enter new Item :");
+    const updatedPriority = prompt("Enter new priority :");
+
+    const updatedAT = new Date().getTime();
     const updateedItem = ctx.todo.map((item) => {
-      if (item.id === id) {
-        return { todo: newItem };
+      if (item.id == id) {
+        console.log("updated");
+        return { ...item, todo: newItem, updatedAt: updatedAT,priority:updatedPriority };
+     
       }
       return item;
     });
@@ -79,14 +78,13 @@ const Todo = () => {
         />
       ))}
 
+      {/* <p>To do size {ctx.todo.length}</p> */}
       <p
         style={{
-          margin: "10px",
+          marginTop: "20px",
+          textAlign:"center"
         }}
       >
-        To do size {ctx.todo.length}
-      </p>
-      <p>
         {" "}
         Completed: {ctx.todo.filter((item) => item.complete).length}/
         {ctx.todo.length}
