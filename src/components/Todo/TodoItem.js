@@ -7,6 +7,8 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import "./TodoItem.css";
+
 const TodoItem = (props) => {
   const navigate = useNavigate();
 
@@ -18,7 +20,10 @@ const TodoItem = (props) => {
             props.item.complete ? " item-complete" : ""
           }`}
         >
-          <span>{props.item.todo}</span>
+          <span>
+            {props.item.todo}
+            <span className="badge bg-secondary">P{props.item.priority}</span>
+          </span>
           <div>
             <FontAwesomeIcon
               style={{

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import About from "./components/About/About";
 import Detail from "./components/Detail/Detail";
 import DetailContext from "./components/context";
+
 function App() {
   const generateId = () => Math.floor(Math.random() * 1000);
   const myTodoItems = [
@@ -15,21 +16,33 @@ function App() {
       id: generateId(),
       todo: "Read books",
       complete: false,
+      priority: 4,
+      createdAt: new Date(2023, 2, 9, 12, 45),
+      updatedAt: new Date(2023, 2, 12, 10, 50),
     },
     {
       id: generateId(),
       todo: "Journaling",
       complete: false,
+      priority: 1,
+      createdAt: new Date(2023, 3, 19, 2, 35),
+      updatedAt: new Date(2023, 3, 22, 10, 0),
     },
     {
       id: generateId(),
       todo: "Make Dinner",
       complete: false,
+      priority: 2,
+      createdAt: new Date(2023, 1, 3, 5, 15),
+      updatedAt: new Date(2023, 1, 7, 4, 0),
     },
     {
       id: generateId(),
       todo: "Push-ups",
       complete: false,
+      priority: 3,
+      createdAt: new Date(2023, 0, 4, 4, 22),
+      updatedAt: new Date(2023, 0, 5, 5, 0),
     },
   ];
   const [todoItems, setTodoItems] = useState(myTodoItems);
@@ -72,7 +85,7 @@ function App() {
           <DetailContext.Provider
             value={{
               todoList: todoItems,
-              setTodoItems: setTodoItems
+              setTodoItems: setTodoItems,
             }}
           >
             <Routes>

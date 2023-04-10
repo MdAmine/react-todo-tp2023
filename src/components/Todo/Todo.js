@@ -26,7 +26,9 @@ const Todo = () => {
     let updatedTodo = prompt("Please update todo item", todoItem.todo);
     if (updatedTodo != null) {
       const todoItemList = todoItems.map((item) =>
-        item === todoItem ? { ...item, todo: updatedTodo } : item
+        item === todoItem
+          ? { ...item, todo: updatedTodo, updatedAt: new Date() }
+          : item
       );
       context.setTodoItems(todoItemList);
     }
@@ -39,11 +41,18 @@ const Todo = () => {
     context.setTodoItems(todoSearched);
   };
 
-  const addTodoItem = (event, newTodo) => {
+  const addTodoItem = (event, newTodo, newPriority) => {
     event.preventDefault();
     const newList = [
       ...todoItems,
-      { id: Math.floor(Math.random() * 1000), todo: newTodo, complete: false },
+      {
+        id: Math.floor(Math.random() * 1000),
+        todo: newTodo,
+        complete: false,
+        priority: newPriority,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ];
     context.setTodoItems(newList);
   };
@@ -72,7 +81,7 @@ const Todo = () => {
       ))}
 
       <div style={{ color: "white", padding: 5 }}>
-        Finished tasks :{" "}
+        Finished todo :{" "}
         {todoItems.filter((item) => item.complete === true).length}/
         {todoItems.length}{" "}
       </div>
@@ -80,4 +89,5 @@ const Todo = () => {
     </>
   );
 };
+
 export default Todo;
