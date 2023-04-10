@@ -18,6 +18,8 @@ function Todo(props) {
   useEffect(() => {
     todosContext.todoItems.sort((a, b) => a.complete - b.complete)
 
+
+
     const filteredItems = todosContext.todoItems.filter((item) =>
       item.todo.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -65,6 +67,13 @@ function Todo(props) {
     todosContext.setTodoItems([...todosContext.todoItems, newTodoItem]);
   };
 
+  const filterItem=(priority) =>{
+
+    const newTodoItems = todosContext.todoItems.filter((item) => item.priority == priority);
+    setFilteredTodoItems(newTodoItems);
+
+  }
+
   return (
     <div>
       <header className="text-center text-light my-4">
@@ -77,6 +86,11 @@ function Todo(props) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <br/>
+        <button type="button" onClick={()=>filterItem(4)} className="btn btn-outline-primary">4</button>
+        <button type="button"  onClick={()=>filterItem(2)}className="btn btn-outline-warning">2</button>
+        <button type="button" onClick={()=>filterItem(3)} className="btn btn-outline-success">3</button>
+        <button type="button" onClick={()=>filterItem(1)} className="btn btn-outline-danger">1</button>
       </header>
 
       {filteredTodoItems.map((item) => (
@@ -86,6 +100,7 @@ function Todo(props) {
           completeTodo={completeTodoItem}
           deleteItem={deleteTodoItem}
           updateItem={updateTodoItem}
+
         />
       ))}
 
