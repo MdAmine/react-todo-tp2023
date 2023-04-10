@@ -1,0 +1,39 @@
+.user{
+
+    border: 2px solid white;
+    width: 600px;
+    height: auto;
+    background-color: #c784dd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.user:hover{
+    background-color: #8974fb;
+    border: 2px solid red;
+}
+
+.contentAbout{
+
+    width: 800px;
+    height: auto;
+    margin-left: 360px;
+}
+
+h1{
+    color: aliceblue;
+    
+    text-align: center;
+    font-family: 'Helvetica Neue',
+    sans-serif; font-size: 50px; font-weight: bold; letter-spacing: -1px; line-height: 1;
+}
+
+p {
+   color: black;
+   font-family: 'Helvetica Neue', sans-serif; 
+   font-size: 19px; 
+   line-height: 24px;
+   text-align: justify; 
+   text-justify: inter-word; 
+   padding: 5px;
+}

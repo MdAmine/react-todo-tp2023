@@ -1,17 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
-
-body {
-  background-color: #352f5b;
-  font-family: "Roboto", sans-serif;
-}
-
-.container {
-  width: auto;
-  margin-top: 10%;
-}
-
-
-/* Todo 
+/* Todo */
 
 input[type="text"],
 input[type="text"]:focus {
@@ -22,6 +9,10 @@ input[type="text"]:focus {
 
 label.add {
   margin-bottom: 15px;
+}
+
+label.priority{
+  margin-right: 10px;
 }
 
 li.list-group-item {
@@ -36,4 +27,12 @@ li.list-group-item {
 .item-complete {
   background-color: #3c3b45 !important;
 }
-*/
+.totoChecked{
+  color: #f8f9fa;
+}
+
+.contentTodo{
+ 
+  margin: 0 auto;
+  width: 450px;
+}
