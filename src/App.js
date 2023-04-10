@@ -12,35 +12,47 @@ import ExampleContext from "./components/context/context";
 
 
 function App() {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(false);
 
   const changeState = (value) => {
     setState(value);
   };
 
   const generateId = () => Math.floor(Math.random() * 1000);
-  const todoItems = [
+  const [todoItems, setTodoItems] = useState([
     {
       id: 1,
       todo: "Read books",
       complete: false,
+      priority:1,
+      createdAt: "4/10/2023, 10:03:42 AM",
+      updatedAt: ""
     },
     {
       id: 2,
       todo: "Journaling",
       complete: false,
+      priority:2,
+      createdAt: "4/10/2023, 10:03:42 AM",
+      updatedAt: ""
     },
     {
       id: 3,
       todo: "Make Dinner",
       complete: false,
+      priority:3,
+      createdAt: "4/10/2023, 10:03:42 AM",
+      updatedAt: ""
     },
     {
       id: 4,
       todo: "Push-ups",
       complete: false,
+      priority:4,
+      createdAt: "4/10/2023, 10:03:42 AM",
+      updatedAt: ""
     },
-  ];
+  ]);
 
   return (
     <div className="container">
@@ -49,7 +61,7 @@ function App() {
        
           <ExampleContext.Provider
               value={{
-                myVar: todoItems,
+                todoItems, setTodoItems
               }}
           >
               <Routes>

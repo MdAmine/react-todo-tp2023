@@ -11,6 +11,10 @@ label.add {
   margin-bottom: 15px;
 }
 
+label.priority{
+  margin-right: 10px;
+}
+
 li.list-group-item {
   background-color: #423a6f;
   color: #f8f9fa;
@@ -25,4 +29,10 @@ li.list-group-item {
 }
 .totoChecked{
   color: #f8f9fa;
+}
+
+.contentTodo{
+ 
+  margin: 0 auto;
+  width: 450px;
 }

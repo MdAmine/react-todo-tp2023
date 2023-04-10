@@ -22,6 +22,21 @@ function TodoItem2(props) {
   const goToDetail = (id,todo,complete) => {
     navigate("/detail/"+id);
   };
+  
+  const badge=(priority) =>{
+    switch (priority) {
+      case 1:   
+        return "bg-primary"    
+      case 2:   
+        return "bg-secondary" 
+      case 3:   
+        return "bg-success"    
+      case 4:   
+        return "bg-danger"   
+      default:
+        return ""
+    }
+  }
 
   return (
     <ul className="list-group todos mx-auto text-light">
@@ -30,6 +45,7 @@ function TodoItem2(props) {
       >
         <span>{props.item.todo}</span>
         <div>
+          <span className={`badge ${ badge(props.item.priority) }`}>{props.item.priority}</span>
           <FontAwesomeIcon
             style={{
               marginRight: "0.3em",
@@ -59,6 +75,7 @@ function TodoItem2(props) {
             onClick={() =>handlePrompt(props.item.id,props.item.todo)}
           />
           <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => props.deleteTodoItem(props.item.id)}/>
+          
         </div>
       </li>
     </ul>

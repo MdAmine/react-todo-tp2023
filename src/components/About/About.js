@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-
+import { Link} from "react-router-dom";
+import {
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./about.css";
 function About() {
-
   const [users, setUsers] = useState([]);
-  //const [isLoading, setIsLoading] = useState(false);
-  //const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchRepoInfos();
@@ -16,22 +17,38 @@ function About() {
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
-        console.log(users)
-        console.log(data)
+        console.log(users);
+        console.log(data);
       });
   }
-  
 
-  return ( 
+  return (
     <>
+      <Link id="back" to="/todo">
+      
+      <FontAwesomeIcon
+            style={{
+              marginRight: "0.3em",
+              width: "50 px",
+            }}
+            icon={ faChevronLeft }
+            className="pointer"
+                      
+      />Back</Link>
+      <h1>List Of Users</h1>
+      <div className="contentAbout">
         {users.map((i) => (
-          <div className="content">
-            <p key={i.id}>Id : {i.id}</p>    
-            <p >Title : {i.title}</p> 
-            <p >Completed : {i.completed+""}</p> 
-          </div>     
+          <>
+            <div className="user">
+              <p key={i.id}>Id : {i.id}</p>
+              <p>Title : {i.title}</p>
+              <p>Completed : {i.completed + ""}</p>
+            </div>
+          </>
         ))}
-    </>  
+      </div>
+    </>
   );
 }
+
 export default About;

@@ -1,45 +1,46 @@
-import { useRef,useEffect } from "react";
+import { useRef, useEffect } from "react";
+
+import "./Login.css";
 function Login(props) {
+  const email = useRef();
+  const password = useRef();
+  const users = [
+    {
+      id: 1,
+      email: "hamzaessakhi01@gmail.com",
+      password: "123456",
+    },
+    {
+      id: 2,
+      email: "ali@gmail.com",
+      password: "654321",
+    },
+  ];
 
-    const email = useRef();
-    const password = useRef();
-    const users=[
-      {
-        id: 1,
-        email: "hamzaessakhi01@gmail.com",
-        password: "123456",
-      },
-      {
-        id: 2,
-        email: "ali@gmail.com",
-        password: "654321",
-      },        
-    ] 
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-  
-
-    const handleLogin = (e) =>{
-      e.preventDefault();
-      
-      var etat=false
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].email === email.current.value && users[i].password === password.current.value) {
-           etat=true;
-           break;
-        }
-      }  
-
-      if (etat) {
-         props.changeState(etat)  
+    var etat = false;
+    for (let i = 0; i < users.length; i++) {
+      if (
+        users[i].email === email.current.value &&
+        users[i].password === password.current.value
+      ) {
+        etat = true;
+        break;
       }
-      else{
-        alert("email or password invalide")
-      }
-        
     }
-    
-    return (
-     <form className="text-center my-4 text-light" onSubmit={handleLogin}>
+
+    if (etat) {
+      props.changeState(etat);
+    } else {
+      alert("email or password invalide");
+    }
+  };
+
+  return (
+    <div className="contentLogin">
+      <form className="text-center my-4 text-light" onSubmit={handleLogin}>
         <h1 className="mb-4">Login Form</h1>
         <input
           type="text"
@@ -55,10 +56,11 @@ function Login(props) {
           placeholder="Enter your Password"
           ref={password}
         />
-        <button type="submit" className="btn btn-dark" >
+        <button type="submit" className="btn btn-dark">
           Login
         </button>
       </form>
-    );
+    </div>
+  );
 }
 export default Login;
