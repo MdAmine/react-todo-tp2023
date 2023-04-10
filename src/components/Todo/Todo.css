@@ -24,3 +24,15 @@ li.list-group-item {
 .item-complete {
   background-color: #3c3b45 !important;
 }
+
+header .btn {
+  margin: 0 5px;
+}
+
+.filter-prio{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 15px 0;
+}

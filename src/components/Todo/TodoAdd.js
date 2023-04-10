@@ -15,7 +15,7 @@ const TodoAdd = (props) => {
             selectRef.current.value
           );
           inputRef.current.value = "";
-          selectRef.current.value = "";
+          selectRef.current.value = 1;
         }}
       >
         <label htmlFor="add" className="add text-light">

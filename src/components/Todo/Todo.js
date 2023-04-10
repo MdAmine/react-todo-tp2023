@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Todo.css";
 import TodoAdd from "./TodoAdd";
 import TodoItem from "./TodoItem";
@@ -11,11 +11,14 @@ const Todo = () => {
   let todoItems = context.todoList;
   const [todoItemsCopy, setTodoItemsCopy] = useState(todoItems);
 
+  // useEffect(() => setTodoItemsCopy(todoItems), [todoItems])
+
   const completeTodoItem = (id) => {
     const todoItem = todoItems.map((item) =>
       item.id === id ? { ...item, complete: !item.complete } : item
     );
     context.setTodoItems(todoItem);
+    setTodoItemsCopy(todoItem)
   };
 
   const deleteTodoItem = (id) => {
@@ -55,7 +58,15 @@ const Todo = () => {
       },
     ];
     context.setTodoItems(newList);
+    setTodoItemsCopy(newList)
   };
+
+  const filterByPriority = (e, priority) => {
+    e.preventDefault()
+    if(priority !== 0) {
+      context.setTodoItems(todoItemsCopy.filter(item => item.priority === priority))
+    }
+  }
 
   return (
     <>
@@ -68,6 +79,27 @@ const Todo = () => {
           placeholder="search todos"
           onChange={(event) => searchTodoItem(event)}
         />
+        <div className="filter-prio">
+          <p>Filter priority : </p>
+          <div className="buttons">
+            <button type="button" className="btn btn-dark" onClick={() => context.setTodoItems(todoItemsCopy)}>
+              All
+            </button>
+            <button type="button" className="btn btn-danger" onClick={(e) => filterByPriority(e, 1)}>
+              P1
+            </button>
+            <button type="button" className="btn btn-success" onClick={(e) => filterByPriority(e, 2)}>
+              P2
+            </button>
+            <button type="button" className="btn btn-warning" onClick={(e) => filterByPriority(e, 3)}>
+              P3
+            </button>
+
+            <button type="button" className="btn btn-primary" onClick={(e) => filterByPriority(e, 4)}>
+              P4
+            </button>
+          </div>
+        </div>
       </header>
 
       {todoItems.map((i) => (
@@ -82,8 +114,8 @@ const Todo = () => {
 
       <div style={{ color: "white", padding: 5 }}>
         Finished todo :{" "}
-        {todoItems.filter((item) => item.complete === true).length}/
-        {todoItems.length}{" "}
+        {todoItemsCopy.filter((item) => item.complete === true).length}/
+        {todoItemsCopy.length}{" "}
       </div>
       <TodoAdd addTodoItem={addTodoItem} />
     </>

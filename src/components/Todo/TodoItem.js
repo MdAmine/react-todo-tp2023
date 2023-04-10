@@ -13,10 +13,10 @@ const TodoItem = (props) => {
   const navigate = useNavigate();
   
   const badgeColor = () => {
-    if(props.item.priority === 1) { return "bg-primary"}
-    if(props.item.priority === 2) { return "bg-warning"}
-    if(props.item.priority === 3) { return "bg-success"}
-    if(props.item.priority === 4) { return "bg-danger"}
+    if(props.item.priority === 4) { return "bg-primary"}
+    if(props.item.priority === 3) { return "bg-warning"}
+    if(props.item.priority === 2) { return "bg-success"}
+    if(props.item.priority === 1) { return "bg-danger"}
   }
   return (
     <>
