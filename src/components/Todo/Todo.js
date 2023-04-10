@@ -3,18 +3,20 @@ import ContextTodo from "../contexte/ContextTodo";
 import "./Todo.css";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
-
+const generateId = () => Math.floor(Math.random() * 1000);
 function Todo() {
   const { todoItems, settodoItems } = useContext(ContextTodo);
 
   const checkTodoItem = (id) => {
-    const newItem = todoItems.map((item) =>
-      item.id === id ? { ...item, complete: !item.complete } : item
-    );
-    settodoItems(newItem);
-    console.log(newItem);
+    const index = todoItems.findIndex((item) => item.id === id);
+    const itemToMove = todoItems[index];
+    const newItems = todoItems.filter((item) => item.id !== id);
+    itemToMove.complete = !itemToMove.complete;
+    newItems.push(itemToMove);
+    settodoItems(newItems);
+    console.log(newItems);
   };
-
+  
 
   const removeTodoItem = (id) => {
     if (
@@ -31,10 +33,19 @@ function Todo() {
     }
   };
 
-
   const addTodoItem = (newItem) => {
-    settodoItems([...todoItems, newItem]);
+    const date = new Date();
+    const todoItem = {
+      id: generateId(),
+      todo: newItem.todo,
+      complete: false,
+      priority: newItem.priority,
+      createdAt: date,
+      editedAt: date,
+    };
+    settodoItems([...todoItems, todoItem]);
   };
+  
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -47,7 +58,8 @@ function Todo() {
   };
   const searchTodoItem = () => {
     const result = todoItems.filter((item) =>
-      item.todo.toLowerCase().includes(searchTerm.toLowerCase())
+      item.todo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.priority.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResult(result);
   };
@@ -61,9 +73,13 @@ function Todo() {
     } else if (newItem === "") {
       alert("Veuillez remplir le champ");
     } else {
+      const date = new Date();
       const updatedTodoItems = todoItems.map((item) =>
-        item.id === id ? { ...item, todo: newItem } : item
+      
+        item.id === id ? { ...item, todo: newItem ,editedAt:date} : item
+        
       );
+      
       settodoItems(updatedTodoItems);
     }
   };

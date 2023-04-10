@@ -18,10 +18,13 @@ function TodoItem(props) {
           className={`list-group-item d-flex justify-content-between align-items-center`}
         >
           <Link
-            to={`/detail/${props.item.id}/${props.item.todo}/${props.item.complete}`}
+            to={`/detail/${props.item.id}/${props.item.todo}/${props.item.complete}/${props.item.priority}/${props.item.createdAt}/${props.item.editedAt}`}
             style={{ textDecoration: "none",color:"white" }}
           >
+            <div style={{ display:"flex",justifyContent:"center",alignItems:"center",gap:100 }}>
             <span>{props.item.todo}</span>
+            <span style={{ color: 'blue', alignText:'center' }}>{props.item.priority}</span>
+            </div>
           </Link>
           <div>
             <FontAwesomeIcon
