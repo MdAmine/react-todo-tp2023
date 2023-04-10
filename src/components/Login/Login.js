@@ -6,7 +6,12 @@ const Login = (props) => {
 
   return (
     <>
-      <form className="text-center my-4 text-light" onSubmit={(event) => props.handleSubmit(event, email.current.value, password.current.value)}>
+      <form
+        className="text-center my-4 text-light"
+        onSubmit={(event) =>
+          props.handleSubmit(event, email.current.value, password.current.value)
+        }
+      >
         <h1 className="mb-4">Login Form</h1>
         <input
           type="text"

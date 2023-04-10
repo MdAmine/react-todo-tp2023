@@ -1,6 +1,7 @@
 /* Todo */
 
-input[type="text"], #select,
+input[type="text"],
+#select,
 input[type="text"]:focus {
   color: #fff;
   border: none;
@@ -29,7 +30,7 @@ header .btn {
   margin: 0 5px;
 }
 
-.filter-prio{
+.filter-prio {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

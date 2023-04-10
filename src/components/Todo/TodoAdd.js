@@ -30,7 +30,7 @@ const TodoAdd = (props) => {
         />
         <select
           className="form-select"
-          id= "select"
+          id="select"
           aria-label="select priority"
           ref={selectRef}
         >

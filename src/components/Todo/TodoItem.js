@@ -11,13 +11,21 @@ import "./TodoItem.css";
 
 const TodoItem = (props) => {
   const navigate = useNavigate();
-  
+
   const badgeColor = () => {
-    if(props.item.priority === 4) { return "bg-primary"}
-    if(props.item.priority === 3) { return "bg-warning"}
-    if(props.item.priority === 2) { return "bg-success"}
-    if(props.item.priority === 1) { return "bg-danger"}
-  }
+    if (props.item.priority === 4) {
+      return "bg-primary";
+    }
+    if (props.item.priority === 3) {
+      return "bg-warning";
+    }
+    if (props.item.priority === 2) {
+      return "bg-success";
+    }
+    if (props.item.priority === 1) {
+      return "bg-danger";
+    }
+  };
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -28,7 +36,9 @@ const TodoItem = (props) => {
         >
           <span>
             {props.item.todo}
-            <span className={`badge ${badgeColor()}`}>P{props.item.priority}</span>
+            <span className={`badge ${badgeColor()}`}>
+              P{props.item.priority}
+            </span>
           </span>
           <div>
             <FontAwesomeIcon
