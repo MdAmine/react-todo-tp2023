@@ -27,10 +27,11 @@ const Todo = () => {
 
   const updateTodoItem = (todoItem) => {
     let updatedTodo = prompt("Please update todo item", todoItem.todo);
-    if (updatedTodo != null) {
+    let updatedPriority = prompt("Please update todo priority", todoItem.priority);
+    if (updatedTodo != null && updatedPriority != null) {
       const todoItemList = todoItems.map((item) =>
         item === todoItem
-          ? { ...item, todo: updatedTodo, updatedAt: new Date() }
+          ? { ...item, todo: updatedTodo, priority: +updatedPriority, updatedAt: new Date() }
           : item
       );
       context.setTodoItems(todoItemList);
