@@ -31,7 +31,9 @@ const Detail = () => {
           <span>Updated at :</span> {todo.updatedAt.toLocaleString()}
         </h3>
       </div>
-      <button onClick={() => navigate(-1)}>Back</button>
+      <button className="btn-nav" onClick={() => navigate(-1)}>
+        Back
+      </button>
     </>
   );
 };
