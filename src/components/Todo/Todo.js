@@ -55,6 +55,19 @@ function Todo() {
     ctx.setTodoItems(newTodoItems);
   };
 
+  const filterTodoItem = (priority) => {
+    ctx.setTodoItems(init);
+    if (priority !=0) {
+      ctx.setTodoItems(
+        ctx.todoItems.filter((item) => item.priority == priority)
+      );
+    }
+    else{
+      ctx.setTodoItems(init);
+    }
+    
+  }
+
   const [itemSearch, setItem] = useState("");
   const searchTodoItem = (e) => {
     setItem(e.target.value);
@@ -155,6 +168,14 @@ function Todo() {
             placeholder="search todos"
             onChange={searchTodoItem}
           />
+           <label  className="priority text-light">
+             Filter By Priority : 
+            </label>
+          <span className="badge bg-info text-dark" onClick={() => filterTodoItem(0)}>All</span>
+          <span className="badge bg-primary" onClick={() => filterTodoItem(1)}>1</span>
+          <span className="badge bg-secondary" onClick={() => filterTodoItem(2)}>2</span> 
+          <span className="badge bg-success" onClick={() => filterTodoItem(3)}>3</span>
+          <span className="badge bg-danger" onClick={() => filterTodoItem(4)}>4</span> 
         </header>
         {ctx.todoItems.map((i) => (
           <TodoItem2

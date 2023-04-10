@@ -48,7 +48,6 @@ function FormAdd(props) {
             className=""
             name="priority" 
             value="2" 
-            checked
             onChange={onOptionChange}            
             />
             <span className="badge bg-success">3</span> 
