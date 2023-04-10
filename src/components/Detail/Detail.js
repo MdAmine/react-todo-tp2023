@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import DetailContext from "../context";
+import TodoContext from "../context";
 import "./Detail.css";
 
 const Detail = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const context = useContext(DetailContext);
+  const context = useContext(TodoContext);
   const todo = context.todoList.filter((item) => item.id === +params.id)[0];
 
   return (

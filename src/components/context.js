@@ -1,5 +1,5 @@
 import React from "react";
 
-const DetailContext = React.createContext();
+const TodoContext = React.createContext();
 
-export default DetailContext;
+export default TodoContext;

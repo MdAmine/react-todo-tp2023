@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import "./Todo.css";
 import TodoAdd from "./TodoAdd";
 import TodoItem from "./TodoItem";
-import DetailContext from "../context";
+import TodoContext from "../context";
 import { useNavigate } from "react-router-dom";
 
 const Todo = () => {
   const navigate = useNavigate();
-  let context = useContext(DetailContext);
+  let context = useContext(TodoContext);
   let todoItems = context.todoList;
   const [todoItemsCopy, setTodoItemsCopy] = useState(todoItems);
 
