@@ -29,21 +29,33 @@ function App() {
       id: 1,
       todo: "Read books",
       complete: false,
+      priority: 1,
+      createdAt: "2023-04-09T10:24:15.783Z",
+      updatedAt: "",
     },
     {
       id: 2,
       todo: "Journaling",
       complete: false,
+      priority: 1,
+      createdAt: "2023-04-08T10:24:15.783Z",
+      updatedAt: "",
     },
     {
       id: 3,
       todo: "Make Dinner",
       complete: false,
+      priority: 2,
+      createdAt: "2023-03-09T10:24:15.783Z",
+      updatedAt: "",
     },
     {
       id: 4,
       todo: "Push-ups",
       complete: false,
+      priority: 3,
+      createdAt: "2023-03-22T10:24:15.783Z",
+      updatedAt: "",
     },
   ]);
 

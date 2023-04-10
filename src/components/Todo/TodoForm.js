@@ -1,4 +1,4 @@
-const TodoForm = ({ item, setItem, addItem }) => {
+const TodoForm = ({ item, setItem, addItem, setPriority }) => {
   return (
     <form className="add text-center my-4" onSubmit={addItem}>
       <label htmlFor="add" className="add text-light">
@@ -12,6 +12,18 @@ const TodoForm = ({ item, setItem, addItem }) => {
         value={item}
         onChange={(e) => setItem(e.target.value)}
       />
+      <button className="badge bg-primary" onClick={() => setPriority(1)}>
+        P1
+      </button>
+      <button className="badge bg-secondary" onClick={() => setPriority(2)}>
+        P2
+      </button>
+      <button className="badge bg-success" onClick={() => setPriority(3)}>
+        P3
+      </button>
+      <button className="badge bg-danger" onClick={() => setPriority(4)}>
+        P4
+      </button>
     </form>
   );
 };

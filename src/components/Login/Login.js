@@ -15,7 +15,7 @@ function Login() {
       alert("succes");
       window.location.href = "/todo";
     } else {
-      alert("password incorrect");
+      alert("email or password incorrect");
     }
   };
   return (
