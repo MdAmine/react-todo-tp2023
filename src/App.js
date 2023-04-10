@@ -1,113 +1,86 @@
-import React from "react";
+import React, { useState, createContext } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import Todo from "./components/Todo/Todo";
+import Login from "./components/Login/Login";
+import About from "./components/About/about";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MyContexte from "./components/ContextKhadija";
 
 function App() {
-  return (
+  /* const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  return isLoggedIn ? (
     <div className="container">
-      <header className="text-center text-light my-4">
-        <h1 className="mb-5">Todo List</h1>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="search"
-          placeholder="search todos"
-        />
-      </header>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Read Books</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Sport</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <form className="add text-center my-4">
-        <label htmlFor="add" className="add text-light">
-          Add a new todo:
-        </label>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="add"
-          id="add"
-        />
-      </form>
-
-      {/* <form className="text-center my-4 text-light">
-        <h1 className="mb-4">Login Form</h1>
-        <input
-          type="text"
-          className={`form-control mb-2`}
-          id="email"
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          className={`form-control mb-3`}
-          id="password"
-          placeholder="Enter your Password"
-        />
-        <button type="submit" className="btn btn-dark">
-          Login
-        </button>
-      </form> */}
-
-      <FloatingButton />
+      <Todo />
+      <FloatingButton></FloatingButton>
     </div>
+  ) : (
+    <div className="container">
+      <Login />
+    </div>
+  ); */
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [todoItems, setTodoItems] = useState([
+    {
+      id: 1,
+      todo: "Read books",
+      complete: false,
+      priority: 1,
+      createdAt: "2023-04-09T10:24:15.783Z",
+      updatedAt: "",
+    },
+    {
+      id: 2,
+      todo: "Journaling",
+      complete: false,
+      priority: 1,
+      createdAt: "2023-04-08T10:24:15.783Z",
+      updatedAt: "",
+    },
+    {
+      id: 3,
+      todo: "Make Dinner",
+      complete: false,
+      priority: 2,
+      createdAt: "2023-03-09T10:24:15.783Z",
+      updatedAt: "",
+    },
+    {
+      id: 4,
+      todo: "Push-ups",
+      complete: false,
+      priority: 3,
+      createdAt: "2023-03-22T10:24:15.783Z",
+      updatedAt: "",
+    },
+  ]);
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+  };
+
+  return (
+    <BrowserRouter>
+      <div className="container">
+        <MyContexte.Provider
+          value={{ loggedIn, setLoggedIn, todoItems, setTodoItems }}
+        >
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route
+              path="/todo"
+              element={<Todo handleLogout={handleLogout} />}
+            />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          {loggedIn && <FloatingButton handleLogout={handleLogout} />}
+        </MyContexte.Provider>
+      </div>
+    </BrowserRouter>
   );
 }
 

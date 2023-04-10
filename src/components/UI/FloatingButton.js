@@ -1,8 +1,8 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import "./FloatingButton.scss";
-
-const FloatingButton = () => {
+const isLoggedIn = localStorage.getItem("isLoggedIn");
+const FloatingButton = ({ handleLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -11,6 +11,11 @@ const FloatingButton = () => {
 
   const setUnchecked = () => {
     setChecked(false);
+  };
+  const logOut = (e) => {
+    //e.preventDefault();
+    setChecked(false);
+    handleLogout();
   };
 
   return (
@@ -24,9 +29,15 @@ const FloatingButton = () => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
+          <Link to="/todo">
+            <span>Todo List</span>
+          </Link>
+          <Link to="/about">
+            <span>About</span>
+          </Link>
+          <Link to="/">
+            <span onClick={logOut}>Logout</span>
+          </Link>
         </ul>
       </nav>
     </div>
