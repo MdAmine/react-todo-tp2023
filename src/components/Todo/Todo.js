@@ -49,7 +49,7 @@ const Todo = () => {
         id: Math.floor(Math.random() * 1000),
         todo: newTodo,
         complete: false,
-        priority: newPriority,
+        priority: +newPriority,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
