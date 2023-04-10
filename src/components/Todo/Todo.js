@@ -30,12 +30,22 @@ const Todo = () => {
     };
 
     useEffect(() => {
-        const filteredTodos = ctx.todoItems.filter((item) =>
-            item.todo.toLowerCase().includes(searchValue.toLowerCase())
+        const newFilteredTodos = ctx.todoItems;
+        newFilteredTodos.sort((a, b) => a.complete - b.complete);
+        newFilteredTodos.sort((a, b) => a.priority - b.priority);
+        setFilteredTodos(newFilteredTodos);
+    }, [ctx.todoItems]);
+
+    useEffect(() => {
+        searchItem(searchValue);
+    }, [searchValue]);
+
+    const searchItem = (value) => {
+        const newFilteredTodos = ctx.todoItems.filter((item) =>
+            item.todo.toLowerCase().includes(value.toLowerCase())
         );
-        filteredTodos.sort((a, b) => a.complete - b.complete);
-        setFilteredTodos(filteredTodos);
-    }, [searchValue, ctx.todoItems]);
+        setFilteredTodos(newFilteredTodos);
+    }
 
     const addTodoItem = (todo, priority) => {
         const existingItem = filteredTodos.find((item) => item.todo === todo);
@@ -43,13 +53,19 @@ const Todo = () => {
             alert("Item already exists!!");
             return;
         }
-        const newTodoItem = {id: generateId(), todo, complete: false, priority: priority, createdAt: new Date().toLocaleString()};
-        const newTodoItems = [newTodoItem, ...filteredTodos];
+        const newTodoItem = {
+            id: generateId(),
+            todo,
+            complete: false,
+            priority: priority,
+            createdAt: new Date().toLocaleString()
+        };
+        const newTodoItems = [...filteredTodos, newTodoItem];
         ctx.setTodoItems(newTodoItems);
     };
 
     const filterByPriority = (priority) => {
-        if(priority===0){
+        if (priority === 0) {
             setFilteredTodos(ctx.todoItems);
             return;
         }
@@ -70,11 +86,16 @@ const Todo = () => {
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
                 <div className="input-group mt-2">
-                    <button onClick={() => filterByPriority(0)} className="form-control btn btn-dark btn-sm">All</button>
-                    <button onClick={() => filterByPriority(1)} className="form-control btn btn-danger btn-sm">P1</button>
-                    <button onClick={() => filterByPriority(2)} className="form-control btn btn-warning btn-sm">P2</button>
-                    <button onClick={() => filterByPriority(3)} className="form-control btn btn-primary btn-sm">P3</button>
-                    <button onClick={() => filterByPriority(4)} className="form-control btn btn-success btn-sm">P4</button>
+                    <button onClick={() => filterByPriority(0)} className="form-control btn btn-dark btn-sm">All
+                    </button>
+                    <button onClick={() => filterByPriority(1)} className="form-control btn btn-danger btn-sm">P1
+                    </button>
+                    <button onClick={() => filterByPriority(2)} className="form-control btn btn-warning btn-sm">P2
+                    </button>
+                    <button onClick={() => filterByPriority(3)} className="form-control btn btn-primary btn-sm">P3
+                    </button>
+                    <button onClick={() => filterByPriority(4)} className="form-control btn btn-success btn-sm">P4
+                    </button>
                 </div>
             </header>
 
