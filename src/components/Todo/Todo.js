@@ -48,6 +48,15 @@ const Todo = () => {
         ctx.setTodoItems(newTodoItems);
     };
 
+    const filterByPriority = (priority) => {
+        if(priority===0){
+            setFilteredTodos(ctx.todoItems);
+            return;
+        }
+        const filteredTodos = ctx.todoItems.filter((item) => item.priority == priority);
+        setFilteredTodos(filteredTodos);
+    }
+
     return (
         <>
             <header className="text-center text-light my-4">
@@ -60,6 +69,13 @@ const Todo = () => {
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
+                <div className="input-group mt-2">
+                    <button onClick={() => filterByPriority(0)} className="form-control btn btn-dark btn-sm">All</button>
+                    <button onClick={() => filterByPriority(1)} className="form-control btn btn-danger btn-sm">P1</button>
+                    <button onClick={() => filterByPriority(2)} className="form-control btn btn-warning btn-sm">P2</button>
+                    <button onClick={() => filterByPriority(3)} className="form-control btn btn-primary btn-sm">P3</button>
+                    <button onClick={() => filterByPriority(4)} className="form-control btn btn-success btn-sm">P4</button>
+                </div>
             </header>
 
             {filteredTodos.map((i) => (
