@@ -7,7 +7,7 @@ function Todo() {
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [newItemTodo, setNewItemTodo] = useState("");
-    const [newItemPriority, setNewItemPriority] = useState(3);
+    const [newItemPriority, setNewItemPriority] = useState();
     const [countCheckedList, setCountCheckedList] = useState(0)
 
     const {todoItems, setTodoItems} = useContext(Context);
@@ -56,7 +56,16 @@ function Todo() {
         setNewItemTodo("");
         console.log(newItem)
     }
+    const filterByPriority=(priority) =>{
+        if(priority!=null){
+            const newTodoItems = todoItems.filter((item) => item.priority == priority);
+            setFilteredItems(newTodoItems);
+            console.log(newTodoItems);
+        }else{
+            setFilteredItems(todoItems);
+        }
 
+    }
     return (
         <>
             <header className="text-center text-light my-4">
@@ -70,7 +79,12 @@ function Todo() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </header>
-
+            <div className="input-group mt-2">
+                <button onClick={() => filterByPriority()} className="form-control btn btn-dark btn-sm">All</button>
+                <button onClick={() => filterByPriority(1)} className="form-control btn btn-danger btn-sm">P1</button>
+                <button onClick={() => filterByPriority(2)} className="form-control btn btn-warning btn-sm">P2</button>
+                <button onClick={() => filterByPriority(3)} className="form-control btn  btn-sm" style={{backgroundColor:"white"}}>P3</button>
+            </div>
             {filteredItems.map(
                 (i) => <TodoItem
                     key={i.id}
@@ -86,19 +100,23 @@ function Todo() {
                 <label htmlFor="add" className="add text-light">
                     Add a new todo:
                 </label>
-
                 <input
-                    type="text"
+                    type="number"
                     value={newItemPriority}
+                    placeholder="Choose priority"
                     onChange={(e) => setNewItemPriority(e.target.value)}
                     min="1"
                     max ="3"
+                    className="form-control m-auto"
+                    name="add"
+                    id="add"
                 />
                 <input
                     type="text"
                     className="form-control m-auto"
                     name="add"
                     id="add"
+                    placeholder="Todo"
                     value={newItemTodo}
                     onChange={(e) => setNewItemTodo(e.target.value)}
                     onKeyPress={(e) => {
