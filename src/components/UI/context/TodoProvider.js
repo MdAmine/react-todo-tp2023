@@ -1,8 +1,11 @@
 import React, { createContext, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const TodoContext = createContext();
 
 const TodoProvider = ({ children }) => {
+
+  const navigate = useNavigate();
   
     const generateId = () => Math.floor(Math.random() * 1000);
 
@@ -11,21 +14,33 @@ const TodoProvider = ({ children }) => {
             id: generateId(),
             todo: "Read books",
             complete: false,
+            priority: 2,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: generateId(),
             todo: "Journaling",
             complete: false,
+            priority: 1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: generateId(),
             todo: "Make Dinner",
             complete: false,
+            priority: 3,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: generateId(),
             todo: "Push-ups",
             complete: false,
+            priority: 2,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
     ]);
 
@@ -57,27 +72,10 @@ const TodoProvider = ({ children }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const todo = event.target.add.value;
-        const newTodo = { id: generateId(), todo: todo, complete: false }
+        const newTodo = { id: generateId(), todo: todo, complete: false, priority: Number, createdAt: new Date(), updatedAt: new Date() }
         setTodoItems([...todoItems, newTodo]);
         event.target.add.value = '';
     }
-
-    //edit
-    //const [editingTodo, setEditingTodo] = useState({});
-    let editingTodo = {}
-
-    const handleUpdate = (item) => {
-        setOpenModal(true);
-        //setEditingTodo(item);
-        editingTodo = item;
-        console.log("edd ", editingTodo)
-    }
-
-    const handleClose = () => {
-        //setEditingTodo(null);
-    }
-
-    const [openModal, setOpenModal] = useState(false);
 
     //search
     const [searchText, setSearchText] = useState('');
@@ -88,9 +86,50 @@ const TodoProvider = ({ children }) => {
         t.todo.toLowerCase().includes(searchText.toLowerCase())
     );
 
+    //update
+    const handleUpdateTodoItem = (updatedTodoItem) => {
+      navigate("/updateTodo");
+      setTodoItems((prevState) =>
+        prevState.map((todoItem) =>
+          todoItem.id === updatedTodoItem.id ? { ...updatedTodoItem } : todoItem
+        )
+      );
+    };
+
+    const handleAdd = (event) => {
+      event.preventDefault();
+  
+      const form = event.target;
+      const id = Date.now();
+      const todo = form.todo.value;
+      const complete = !form.complete.checked;
+      const priority = form.priority.value;
+      console.log(form.priority.value)
+      const createdAt = new Date().toISOString();
+      const updatedAt = new Date().toISOString();
+  
+      setTodoItems([
+        ...todoItems,
+        { id, todo, complete, priority, createdAt, updatedAt }
+      ]);
+  
+      form.reset();
+    };
+
+    const [priorityFilter, setPriorityFilter] = useState("");
+
+    const handlePriorityFilterChange = (event) => {
+        setPriorityFilter(parseInt(event.target.value));
+    };
+
+    const filteredTodoList = priorityFilter
+        ? todoItems.filter((todoItem) => todoItem.priority === priorityFilter)
+        : todoItems;
+
   return (
-    <TodoContext.Provider value={{todoItems, completeItems, handleDelete, handleUpdate, handleClose,
-        handleSubmit, searchText, handleSearchInputChange, filteredTodos, editingTodo, setOpenModal, openModal}}>
+    <TodoContext.Provider value={{filteredTodoList, handlePriorityFilterChange, priorityFilter, 
+      setPriorityFilter, todoItems, completeItems, handleDelete, handleSubmit, searchText, 
+      handleSearchInputChange, filteredTodos,  handleAdd, handleUpdateTodoItem }}>
       {children}
     </TodoContext.Provider>
   );

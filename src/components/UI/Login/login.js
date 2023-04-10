@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import FloatingButton from "../FloatingButton"
-import Home from "../Home/home";
+import Home from "../Home/Home";
 import { Navigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { LoginContext } from '../context/LoginProvider'
+import { LoginContext } from '../Context/LoginProvider'
 
 function Login() {
 

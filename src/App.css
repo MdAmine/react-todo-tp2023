@@ -33,6 +33,10 @@ li.list-group-item:hover{
   background-color: #6b5eb0;
 }
 
+label{
+  color: #eee
+}
+
 .pointer {
   cursor: pointer;
 }

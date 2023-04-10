@@ -1,72 +1,84 @@
-import React, { useContext } from 'react';
-import TodoItem from './todoItem.js';
+import React, { Children, createContext, useContext } from 'react';
+import TodoItem from './TodoItem.js';
 import Modal from '../popup/Modal.js';
 import FloatingButton from '../FloatingButton.js';
-import { useNavigate } from 'react-router-dom';
-import { TodoContext } from '../context/TodoProvider.js'
+import { Navigate, useNavigate } from 'react-router-dom';
+import { TodoContext } from '../Context/TodoProvider.js'
 import './TodoList.scss'
-import ModalWindow from '../popup/Modal.js';
+import { LoginContext } from '../Context/LoginProvider.js';
+import AddTodo from './AddTodo.js';
 
-function TodoList(props) {
+const TodoContextt = createContext();
 
-  const { completeItems, handleDelete, handleUpdate,
-    handleSubmit, searchText, handleSearchInputChange, filteredTodos,
-    editingTodo, setOpenModal, openModal } = useContext(TodoContext)
+function TodoList({ children }) {
+
+    const  { priorityFilter, filteredTodoList, handlePriorityFilterChange, completeItems, handleDelete, handleUpdate,
+        handleSubmit, searchText, handleSearchInputChange, filteredTodos,
+        handleLogout, handleAdd, handleUpdateTodoItem
+    } = useContext(TodoContext)
 
     const navigate = useNavigate();
+
+    const { isLoggedIn } = useContext(LoginContext);
+
+    if (!isLoggedIn) {
+        return <Navigate to="/login" />
+    }
+
+
+
     return (
-        <div className="container">
-            <button onClick={() => navigate(-1)} style={{ position: 'absolute', top: 0, left: 0 }}
-            >Go Back</button>
-            <header className="text-center text-light my-4">
-                <h1 className="mb-5">Todo List</h1>
-                <input
-                    type="text"
-                    className="form-control m-auto"
-                    name="search"
-                    placeholder="search todos"
-                    onChange={handleSearchInputChange}
-                    value={searchText}
-                />
-            </header>
+        <>
+            <div className="container">
+                <header className="text-center text-light my-4">
+                    <h1 className="mb-5">Todo List</h1>
+                    <input
+                        type="text"
+                        className="form-control m-auto"
+                        name="search"
+                        placeholder="search todos"
+                        onChange={handleSearchInputChange}
+                        value={searchText}
+                    />
+                </header>
 
-            {filteredTodos.map((todo, index) => (
-                <div className="todo-item">
-                <TodoItem key={index}
-                    todo={todo}
-                    completeItems={completeItems}
-                    handleDelete={handleDelete}
-                    handleUpdate={handleUpdate} />
-                </div>
-            ))}
-            {/*todoItems.map((todo) =>
-                <TodoItem key={todo.id}
-                    todo={todo}
-                    completeItems={completeItems}
-                    handleDelete={handleDelete}
-                    setOpenModal={setOpenModal}
-                    setEditingTodo={setEditingTodo} />
-            )*/}
-
-            {openModal &&
-                <Modal open={openModal}
-                    onClose={() => setOpenModal(false)}
-                    editingTodo={editingTodo} />
-            }
-
-            <form className="add text-center my-4" onSubmit={handleSubmit}>
-                <label htmlFor="add" className="add text-light">
-                    Add a new todo:
+                <label>
+                    Filter by Priority:
+                    <select value={priorityFilter} onChange={handlePriorityFilterChange}>
+                        <option value="">All</option>
+                        <option value="1">Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                    </select>
                 </label>
-                <input
-                    type="text"
-                    className="form-control m-auto"
-                    name="add"
-                    id="add"
-                />
-            </form>
-            <FloatingButton handleLogout={props.handleLogout} />
-        </div>
+                <ul>
+                    {filteredTodoList.map((todoItem) => (
+                        <TodoItem key={todoItem.id} todo={todoItem} />
+                    ))}
+                </ul>
+
+                {filteredTodos.map((todo, index) => (
+                    <div className="todo-item">
+                        <TodoItem key={index}
+                            todo={todo}
+                            completeItems={completeItems}
+                            handleDelete={handleDelete}
+                            handleUpdate={handleUpdate}
+                            handleUpdateTodoItem={handleUpdateTodoItem} />
+                    </div>
+                ))}
+
+                
+
+                <AddTodo handleAdd={handleAdd} />
+
+                <FloatingButton handleLogout={handleLogout} />
+            </div>
+
+            <TodoContext.Provider>
+                {children}
+            </TodoContext.Provider>
+        </>
     );
 }
-export default TodoList;  
+export { TodoList, TodoContextt };  

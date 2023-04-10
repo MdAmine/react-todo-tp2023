@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './styles.css';
 import FloatingButton from '../FloatingButton';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { LoginContext } from '../Context/LoginProvider';
 
 function About() {
 
+    const {isLoggedIn} = useContext(LoginContext)
     const navigate = useNavigate();
 
     const [todos, setTodos] = useState([]);
@@ -19,6 +21,11 @@ function About() {
                 console.log(error);
             });
     }, []);
+
+    if(!isLoggedIn){
+        return <Navigate to="/login"/>
+    }
+
 
     return (
         <div>

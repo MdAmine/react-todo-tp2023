@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import images from './image.jpg'
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TodoContext } from '../Context/TodoProvider';
 
-const Modal = (props ) => {
+const Modal = () => {
+/*
+  const {editingTodo, open, handleUpdate} = useContext(TodoContext)
 
   const [add, setAdd] = useState('');
 
-  const [todo, setTodo] = useState(props.editingTodo);
+  const [todo, setTodo] = useState(editingTodo);
   const [isOpen, setIsOpen] = useState(false);
 
   //console.log("aaaaa ",props.editingTodo);
   
   useEffect( () => {
-    console.log("aaaaa ",props.editingTodo);
+    console.log("aaaaa ",editingTodo);
     //setAdd(props.editingTodo.todo);
-  }, [props.editingTodo]);
+  }, [editingTodo]);
 
 
   const handleChange =(e) => {
@@ -25,38 +27,26 @@ const Modal = (props ) => {
 
   const navigate = useNavigate();
 
-  if (!props.open) return null;
+  if (!open) return null;
   return (
-    <div onClick={props.onClose} className='overlay'>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className='modalContainer'
-      >
-        <div className='modalRight'>
-          <p className='closeBtn' onClick={props.onClose}>
-            X
-          </p>
-          <div className='content'>
-          <form className="add text-center my-4" >
-                <label htmlFor="add" className="add text-light">
-                    Add a new todo:
-                </label>
-                <input
-                    type="text"
-                    className="form-control m-auto"
-                    name="add"
-                    id="add"
-                    value={todo.todo}
-                    onChange={(e) => handleChange(e)}
-                />
-            </form>
-          </div>
+    <div className="todo-popup-container">
+      <button onClick={handleUpdate}>Edit</button>
+      {isOpen && (
+        <div className="todo-popup">
+          <h2>Update Todo</h2>
+          <label>
+            Title:
+            <input type="text" name="title" value={editingTodo.todo} onChange={handleChange} />
+          </label>
+          <label>
+            Description:
+            <textarea name="description" value={todo.description} onChange={handleChange}></textarea>
+          </label>
+          <button onClick={handleUpdate}>Update</button>
+          <button>Cancel</button>
         </div>
-      </div>
+      )}
     </div>
   );
-};
-
+      */};
 export default Modal;

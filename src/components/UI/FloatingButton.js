@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "./FloatingButton.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginContext } from "./context/LoginProvider";
+import { LoginContext } from "./Context/LoginProvider";
 
 const FloatingButton = (props) => {
 
