@@ -1,12 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import {
   faCheck,
   faPenToSquare,
   faTrashAlt,
   faXmark,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = (props) => {
+  const [showDetails, setShowDetails] = useState(false);
+  const DetailItem = () => {
+    setShowDetails(!showDetails);
+  };
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -32,11 +38,29 @@ const TodoItem = (props) => {
               }}
               icon={faPenToSquare}
               className="pointer"
+              onClick={() => props.updateTodoItem(props.item.id)}
             />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+            <FontAwesomeIcon
+              style={{ marginRight: "0.3em" }}
+              icon={faInfoCircle}
+              className="pointer"
+              onClick={DetailItem}
+            />
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              className="pointer"
+              onClick={() => props.deleteItem(props.item.id)}
+            />
           </div>
         </li>
       </ul>
+      {showDetails && (
+        <div className="details text-light">
+          <p>ID: {props.item.id}</p>
+          <p>Created: {props.item.todo}</p>
+          <p>Completed: {props.item.complete ? "Yes" : "No"}</p>
+        </div>
+      )}
     </>
   );
 };
