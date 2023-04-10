@@ -37,6 +37,7 @@ $light-purple: #c784dd;
     transform: rotate(90deg);
     transition: all 0.4s ease;
   }
+
   &:after {
     position: absolute;
     content: "";
@@ -99,4 +100,7 @@ $light-purple: #c784dd;
   .buttonContainer {
     width: 100%;
   }
+}
+Link{
+  text-decoration: none;
 }

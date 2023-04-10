@@ -1,114 +1,78 @@
-import React from "react";
-
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import Todo from "./components/Todo/Todo";
+import Login from "./components/login/Login";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import ToDoList from "./components/toDoList/ToDoList";
+import About from "./components/about/About";
+import Detail from "./components/details/Detail";
+import Context from "./components/contexte/Context";
+
+
 
 function App() {
-  return (
-    <div className="container">
-      <header className="text-center text-light my-4">
-        <h1 className="mb-5">Todo List</h1>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="search"
-          placeholder="search todos"
-        />
-      </header>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Read Books</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Sport</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <form className="add text-center my-4">
-        <label htmlFor="add" className="add text-light">
-          Add a new todo:
-        </label>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="add"
-          id="add"
-        />
-      </form>
-
-      {/* <form className="text-center my-4 text-light">
-        <h1 className="mb-4">Login Form</h1>
-        <input
-          type="text"
-          className={`form-control mb-2`}
-          id="email"
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          className={`form-control mb-3`}
-          id="password"
-          placeholder="Enter your Password"
-        />
-        <button type="submit" className="btn btn-dark">
-          Login
-        </button>
-      </form> */}
-
-      <FloatingButton />
-    </div>
-  );
+    const generateId = () => Math.floor(Math.random() * 1000);
+    const [user, setUser] = useState(false);
+    const logout = () => {
+        setUser(false);
+    };
+    const [todoItems, setTodoItems] = useState([
+        {
+            id: generateId(),
+            todo: "Read books",
+            complete: false,
+            priority:3,
+            createAT:new Date(2023, 4, 25, 12, 30),
+            updateAT:new Date()
+        },
+        {
+            id: generateId(),
+            todo: "Journaling",
+            complete: false,
+            priority:1,
+            createAT:new Date(2023, 4, 25, 12, 33),
+            updateAT:new Date()
+        },
+        {
+            id: generateId(),
+            todo: "Make Dinner",
+            complete: false,
+            priority:2,
+            createAT:new Date(2023, 4, 25, 12, 38),
+            updateAT:new Date()
+        },
+        {
+            id: generateId(),
+            todo: "Push-ups",
+            complete: false,
+            priority:1,
+            createAT:new Date(2023, 4, 25, 12, 50),
+            updateAT:new Date()
+        },
+    ]);
+    const detailItem = (id) =>{
+        return   todoItems.find(item => item.id === parseInt(id));
+    }
+    return (
+        <Context.Provider value={{todoItems, setTodoItems,detailItem}}>
+            <div className="container">
+                    {user ? (
+                        <div>
+                            <Routes>
+                                <Route path="/todo" element={<Todo/>}/>
+                                <Route path="/todoList" element={<ToDoList/>}/>
+                                <Route path="/about" element={<About/>}/>
+                                <Route path="/detail/:id" element={<Detail/>}/>
+                            </Routes>
+                        </div>
+                    ) : (
+                        <Login setUser={setUser}/>
+                    )}
+                    <FloatingButton logout={logout}/>
+            </div>
+        </Context.Provider>
+    );
 }
-
 export default App;
