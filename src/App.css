@@ -13,7 +13,7 @@ body {
 
 /* Todo */
 
-input[type="text"],
+input[type="text"],input[type="number"],
 input[type="text"]:focus {
   color: #fff;
   border: none;
@@ -32,7 +32,10 @@ li.list-group-item {
 .pointer {
   cursor: pointer;
 }
-
+input[type="submit"] {
+  text-align: center;
+}
 .item-complete {
   background-color: #3c3b45 !important;
+  text-decoration: line-through;
 }

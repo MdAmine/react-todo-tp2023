@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
@@ -9,104 +9,82 @@ import {
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import Login from "./components/Login/Login";
+import Todo from "./components/Todo/Todo";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import About from "./components/About/About";
+import Detail from "./components/Detail/Detail";
+import MyContext from "./contex";
 
 function App() {
+  
+  const generateId = () => Math.floor(Math.random() * 1000);
+  const [todoItems,setTodoItems]=useState([
+    {
+      id: generateId(),
+      todo: "Read books",
+      complete: false,
+      priority:1,
+      createdAT:"28/03/2023",
+      updatedAT:""
+    },
+    {
+      id: generateId(),
+      todo: "Journaling",
+      complete: false,
+      priority:2,
+      createdAT:"20/01/2023",
+      updatedAT:""
+    },
+    {
+      id: generateId(),
+      todo: "Make Dinner",
+      complete: false,
+      priority:3,
+      createdAT:"01/04/2023",
+      updatedAT:""
+    },
+    {
+      id: generateId(),
+      todo: "Push-ups",
+      complete: false,
+      priority:4,
+      createdAT:"25/02/2023",
+      updatedAT:""
+    },
+  ]);
+
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+  const login = (email, password) => {
+    if (email === "admin" && password === "admin") {
+      localStorage.setItem("isLoggedIn", true);
+      setIsLogin(true);
+    }
+  };
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLogin(false);
+    navigate("/");
+  };
+  const navigate = useNavigate();
   return (
     <div className="container">
-      <header className="text-center text-light my-4">
-        <h1 className="mb-5">Todo List</h1>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="search"
-          placeholder="search todos"
-        />
-      </header>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Read Books</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Sport</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <form className="add text-center my-4">
-        <label htmlFor="add" className="add text-light">
-          Add a new todo:
-        </label>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="add"
-          id="add"
-        />
-      </form>
-
-      {/* <form className="text-center my-4 text-light">
-        <h1 className="mb-4">Login Form</h1>
-        <input
-          type="text"
-          className={`form-control mb-2`}
-          id="email"
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          className={`form-control mb-3`}
-          id="password"
-          placeholder="Enter your Password"
-        />
-        <button type="submit" className="btn btn-dark">
-          Login
-        </button>
-      </form> */}
-
-      <FloatingButton />
+      <MyContext.Provider value={{todoItems,setTodoItems}}>
+        {isLogin ? (
+          <Routes>
+            <Route path="*" element={<Navigate replace to={"/Todo"} />} />
+            <Route path="/Todo" element={<Todo />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Detail/:id" element={<Detail />} />
+          </Routes>
+        ) : (
+          <Login login={login} />
+        )}
+        <FloatingButton logout={logout} />
+      </MyContext.Provider>
+      ;
     </div>
   );
 }
