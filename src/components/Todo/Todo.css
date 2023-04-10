@@ -1,0 +1,55 @@
+input[type="text"],input[type="password"],#select,
+input[type="text"]:focus {
+  color: #fff;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+label.add {
+  margin-bottom: 15px;
+}
+
+li.list-group-item {
+  background-color: #423a6f;
+  color: #f8f9fa;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.item-complete {
+  background-color: #3c3b45 !important;
+}
+.myClass{
+  text-decoration: line-through;
+}
+.todo-item{
+  color: white;
+  border: 1px solid white ;
+  border-radius: 10px;
+  padding: 10px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: gray 0px 20px 20px -10px;
+  width: 500px;
+}
+.button-back{
+  background-color: #57a1e1;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+}
+
+.button-back:hover{
+  background-color: #fff;
+  color: red;
+  text-align: center;
+}
