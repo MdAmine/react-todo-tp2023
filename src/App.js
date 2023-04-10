@@ -19,21 +19,34 @@ function App() {
       id: generateId(),
       todo: "Read books",
       complete: false,
+      priority:1,
+      createdAt:new Date('04/04/2023 23:15'),
+      updatedAt:new Date('04/04/2023 23:15'),
+
     },
     {
       id: generateId(),
       todo: "Journaling",
       complete: false,
+      priority:3,
+      createdAt: new Date('04/04/2023 23:15'),
+      updatedAt:new Date('04/04/2023 23:15'),
     },
     {
       id: generateId(),
       todo: "Make Dinner",
       complete: false,
+      priority:2,
+      createdAt: new Date('04/04/2023 23:15'),
+      updatedAt:new Date('04/04/2023 23:15'),
     },
     {
       id: generateId(),
       todo: "Push-ups",
       complete: false,
+      priority:4,
+      createdAt: new Date('04/04/2023 23:15'),
+      updatedAt:new Date('04/04/2023 23:15'),
     },
   ]);
 

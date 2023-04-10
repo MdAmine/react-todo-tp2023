@@ -13,7 +13,7 @@ function Todo(props) {
     todosContext.todoItems
   );
 
-  const cunt = todosContext.todoItems.filter((item) => item.complete === false);
+  const cunt = todosContext.todoItems.filter((item) => item.complete === false).length;
 
   useEffect(() => {
     todosContext.todoItems.sort((a, b) => a.complete - b.complete)
@@ -44,17 +44,22 @@ function Todo(props) {
 
     if (itesmTodo != null) {
       const newTodoItems = todosContext.todoItems.map((i) =>
-        i.id === item.id ? { ...i, todo: itesmTodo } : i
+        i.id === item.id ? { ...i, todo: itesmTodo,updatedAt: new Date() } : i
       );
 
       todosContext.setTodoItems(newTodoItems);
     }
   };
-  const addItem = (newTodo) => {
+  const addItem = (newTodo,priority) => {
+    console.log(new Date())
     const newTodoItem = {
       id: props.generateId(),
       todo: newTodo,
+      priority:priority,
       complete: false,
+      createdAt: new Date(),
+      updatedAt:new Date(),
+
     };
 
     todosContext.setTodoItems([...todosContext.todoItems, newTodoItem]);
@@ -85,7 +90,7 @@ function Todo(props) {
       ))}
 
       <h6 className="text-center text-light my-4">
-        completed Todo : {cunt.length}/{todosContext.todoItems.length}
+        completed Todo : {cunt}/{todosContext.todoItems.length}
       </h6>
 
       <FormAdd add={addItem} />

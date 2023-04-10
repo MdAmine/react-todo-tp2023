@@ -19,7 +19,22 @@ const TodoItem = (props) => {
             !props.item.complete ? "" : "item-complete"
           }`}
         >
-          <span>{props.item.todo}</span>
+          <span>{props.item.todo} { "  " }
+                <span
+                  className={`badge  ${
+                      props.item.priority == 1
+                          ? "bg-danger"
+                          : props.item.priority == 2
+                              ? "bg-warning"
+                              : props.item.priority == 3
+                                  ? "bg-success"
+                                  : "bg-primary"
+                  }`}
+              >
+                  P {props.item.priority}
+                </span>
+
+          </span>
           <div>
             <FontAwesomeIcon
               style={{

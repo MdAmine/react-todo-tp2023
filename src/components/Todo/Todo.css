@@ -5,7 +5,7 @@ input[type="text"]:focus {
     border: none;
     background-color: rgba(0, 0, 0, 0.2);
 }
-input[type="password"],
+input[type="password"],input[type="number"],
 input[type="password"]:focus {
     color: #fff;
     border: none;
