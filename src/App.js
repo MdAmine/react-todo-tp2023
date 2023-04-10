@@ -35,21 +35,33 @@ function App() {
       id: generateId(),
       todo: "Read books",
       complete: false,
+      priority: 1,
+      createdAt: new Date().toLocaleString(),
+      updatedAt: ""
     },
     {
       id: generateId(),
       todo: "Journaling",
       complete: false,
+      priority: 2,
+      createdAt: new Date().toLocaleString(),
+      updatedAt: ""
     },
     {
       id: generateId(),
       todo: "Make Dinner",
       complete: false,
+      priority: 3,
+      createdAt: new Date().toLocaleString(),
+      updatedAt: ""
     },
     {
       id: generateId(),
       todo: "Push-ups",
       complete: false,
+      priority: 4,
+      createdAt: new Date().toLocaleString(),
+      updatedAt: ""
     },
   ]);
 
