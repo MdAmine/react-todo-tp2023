@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import FloatingButton from "../UI/FloatingButton";
-import { useNavigate, useParams } from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
+import TodoContext from "../../context/todoContext";
 
 const About = () => {
   const [data, setData] = useState(null);
@@ -8,6 +9,8 @@ const About = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { id, name } = useParams();
+  const {isLoggedIn}=useContext(TodoContext)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,6 +38,9 @@ const About = () => {
   }
   if (!data) {
     return <p className="text-danger">erreur de la récupération des données</p>;
+  }
+  if (!isLoggedIn) {
+    return <Navigate to="/login"/>;
   }
   return (
     <>

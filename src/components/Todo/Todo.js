@@ -3,15 +3,27 @@ import { useContext, useState } from "react";
 import TodoItem from "./TodoItem";
 import Form from "../Form/Form";
 import FloatingButton from "../UI/FloatingButton";
-import { useNavigate } from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import TodoContext from "../../context/todoContext";
 
 const Todo = () => {
-  const generateId = () => Math.floor(Math.random() * 1000);
-  const [newTodo, setNewTodo] = useState("");
+
+
+  const [myForm, setMyForm] = useState({
+    todo: "",
+    priority:"",
+    updatedAt:"",
+    createdAt:"",
+    complete:""
+  });
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchPriority, setSearchPriority] = useState("")
   let navigate = useNavigate();
   const context = useContext(TodoContext);
+  const {isLoggedIn}=useContext(TodoContext)
+  if (!isLoggedIn) {
+    return <Navigate to="/login"/>;
+  }
   const itemsCoches = context.todoItems.filter(
     (item) => item.complete === true
   );
@@ -36,28 +48,20 @@ const Todo = () => {
       context.setTodoItems(newTodoItems);
     }
   };
-  const editTodoItem = (id, todo) => {
+  const editTodoItem = (id, todo,priority) => {
     const newTodo = prompt("enter new todo :", todo);
-    if (newTodo !== null) {
+    const newPriority = prompt("Enter new priority:", priority);
+    if (newTodo !== null && newPriority !== null) {
       const newTodoItems = context.todoItems.map((item) => {
         if (item.id === id) {
-          return { ...item, todo: newTodo };
+          return { ...item, todo: newTodo,priority: newPriority ,updatedAt: new Date()};
         }
         return item;
       });
       context.setTodoItems(newTodoItems);
     }
   };
-  const addTodoItem = (e) => {
-    e.preventDefault();
-    const newTodoItem = {
-      id: generateId(),
-      todo: newTodo,
-      complete: false,
-    };
-    context.setTodoItems([...context.todoItems, newTodoItem]);
-    setNewTodo("");
-  };
+
   const viewDetailsItem = (id) => {
     context.todoItems.map((item) => {
       if (item.id === id) {
@@ -65,20 +69,23 @@ const Todo = () => {
       }
     });
   };
-  const filteredTodoItems = context.todoItems.filter((item) =>
-    item.todo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTodoItems = context.todoItems.filter((item) => {
+    const todo = item.todo ? item.todo.toLowerCase() : ""; // Convertir en minuscules et gérer les valeurs null/undefined
+    const priority = item.priority ? item.priority.toString().toLowerCase() : ""; // Convertir en chaîne de caractères et en minuscules
+
+    return (
+        (!searchTerm || todo.includes(searchTerm.toLowerCase())) && // Filtrer par "todo" si "searchTerm" est défini
+        (!searchPriority || priority.includes(searchPriority.toLowerCase())) // Filtrer par "priority" si "searchPriority" est défini
+    );
+  });
 
   return (
     <>
       <header className="text-center text-light my-4">
         <h1 className="mb-5">Todo List</h1>
-        <button className="btn" onClick={() => navigate(1)}>
-          Next
-        </button>
         <input
           type="text"
-          className="form-control m-auto"
+          className="form-control m-auto mb-3"
           name="search"
           placeholder="search todos"
           value={searchTerm}
@@ -86,6 +93,17 @@ const Todo = () => {
             setSearchTerm(e.target.value);
           }}
         />
+        <input
+            type="text"
+            className="form-control m-auto"
+            name="searchPriority"
+            placeholder="Search todos by priority"
+            value={searchPriority}
+            onChange={(e) => {
+              setSearchPriority(e.target.value);
+            }}
+        />
+
       </header>
       {filteredTodoItems.map((item) => (
         <TodoItem
@@ -101,10 +119,11 @@ const Todo = () => {
         Éléments cochés : {itemsCoches.length} / {context.todoItems.length}
       </p>
       <Form
-        addItem={addTodoItem}
-        newTodoItem={newTodo}
-        setNewTodoItem={setNewTodo}
+        addForm={myForm}
+        setAddForm={setMyForm}
+
       />
+
       <FloatingButton />
     </>
   );

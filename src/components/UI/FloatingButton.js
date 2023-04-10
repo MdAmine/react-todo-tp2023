@@ -1,10 +1,11 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import "./FloatingButton.scss";
+import todoContext from "../../context/todoContext";
 
-const FloatingButton = ({ logout }) => {
+const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
-
+const {logout}=useContext(todoContext)
   const handleClick = () => {
     setChecked(!checked);
   };
@@ -12,6 +13,9 @@ const FloatingButton = ({ logout }) => {
   const setUnchecked = () => {
     setChecked(false);
   };
+  const handleLogout=()=>{
+    logout()
+  }
 
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
@@ -33,7 +37,7 @@ const FloatingButton = ({ logout }) => {
           </span>
 
           <span>
-            <Link to="/login">Logout</Link>
+            <Link to="/login" onClick={handleLogout}>Logout</Link>
           </span>
         </ul>
       </nav>

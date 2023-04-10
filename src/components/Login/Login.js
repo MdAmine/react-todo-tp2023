@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useContext, useState} from "react";
+import TodoContext from "../../context/todoContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   let navigate = useNavigate();
+  const {login}=useContext(TodoContext)
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -19,7 +21,6 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (email.trim() === "" || password.trim() === "") {
       setError("Veuillez remplir tous les champs.");
     } else if (!isValidEmail(email)) {
@@ -27,6 +28,7 @@ const Login = () => {
     } else if (password.length < 8) {
       setError("Le mot de passe doit contenir au moins 8 caractères.");
     } else {
+      login()
       navigate("/");
     }
   };

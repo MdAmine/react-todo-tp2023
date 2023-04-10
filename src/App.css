@@ -8,13 +8,17 @@ body {
 .container {
   max-width: 450px;
   margin-top: 10%;
+
 }
 
 
 /* Todo */
 
+
+
 input[type="text"],
-input[type="text"]:focus {
+input[type="text"]:focus
+{
   color: #fff;
   border: none;
   background-color: rgba(0, 0, 0, 0.2);
@@ -75,7 +79,7 @@ h2{
   color: white;
 }
 .about-container{
-  margin-top: 100px;
+  margin-top: 10px;
   border: #f8f9fa 3px solid;
   padding: 15px;
   background-color: #8974fb;
@@ -89,7 +93,7 @@ h2{
   color: white;
   font-weight: bold;
   text-align: center;
-  font-size: 30px;
+
 }
 .btn-login{
   text-align: center;
@@ -103,3 +107,4 @@ h2{
   margin-top: 20px;
   text-align: center;
 }
+

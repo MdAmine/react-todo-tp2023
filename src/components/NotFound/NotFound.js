@@ -1,7 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import TodoContext from "../../context/todoContext";
 
 const NotFound = () => {
-  let navigate = useNavigate();
+    const {isLoggedIn}=useContext(TodoContext)
+    let navigate = useNavigate();
+    if (!isLoggedIn) {
+        return <Navigate to="/login"/>;
+    }
+
   return (
     <div className="container-page-found">
       <h1 className="pageNotFound">404 Not Found</h1>

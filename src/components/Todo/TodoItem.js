@@ -8,6 +8,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = (props) => {
+  const getColorClass = (priority) => {
+    switch (priority.toString()) {
+      case "1":
+        return "bg-primary";
+      case "2":
+        return "bg-dark";
+      case "3":
+        return "bg-danger";
+      case "4":
+        return "bg-info";
+      default:
+        return "bg-light";
+    }
+  };
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -42,7 +56,7 @@ const TodoItem = (props) => {
               icon={faPenToSquare}
               className="pointer"
               onClick={() =>
-                props.editItems(props.todoItem.id, props.todoItem.todo)
+                props.editItems(props.todoItem.id, props.todoItem.todo,props.todoItem.priority)
               }
             />
             <FontAwesomeIcon
@@ -50,6 +64,9 @@ const TodoItem = (props) => {
               className="pointer"
               onClick={() => props.deleteItems(props.todoItem.id)}
             />
+
+              <span className={`badge ${getColorClass(props.todoItem.priority)} m-lg-2`}>{props.todoItem.priority}</span>
+
           </div>
         </li>
       </ul>
