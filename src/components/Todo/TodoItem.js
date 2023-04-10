@@ -31,6 +31,7 @@ const TodoItem = (props) => {
                   ? "bg-success"
                   : "bg-primary"
               }`}
+              onClick={() => props.filterItem(props.item.priority)}
             >
               P {props.item.priority}
             </span> { "  " }
