@@ -1,113 +1,86 @@
-import React from "react";
-
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-
+import Todo from "./components/Todo/Todo";
+import Login from "./components/Login/Login";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import About from "./components/About/About";
+import TodoDetail from "./components/Details/TodoDetail";
+import TodoContext from "./components/Context/TodoContext";
 function App() {
+  let navigation = useNavigate();
+  const [user, setUser] = useState(false);
+
+  const generateId = () => Math.floor(Math.random() * 1000);
+  let [todoItems, setTodoItems] = useState([
+    {
+      id: generateId(),
+      todo: "Read books",
+      complete: false,
+      priority:1,
+      createdAT:"",
+      updatedAt:""
+    },
+    {
+      id: generateId(),
+      todo: "Journaling",
+      complete: false,
+      priority:4,
+      createdAT:"",
+      updatedAt:""
+    },
+    {
+      id: generateId(),
+      todo: "Make Dinner",
+      complete: false,
+      priority:2,
+      createdAT:"",
+      updatedAt:""
+    },
+    {
+      id: generateId(),
+      todo: "Push-ups",
+      complete: false,
+      priority:3,
+      createdAT:"",
+      updatedAt:""
+    },
+  ]);
+
+  const logout = () => {
+    setUser(false);
+    navigation("/");
+  };
+
   return (
-    <div className="container">
-      <header className="text-center text-light my-4">
-        <h1 className="mb-5">Todo List</h1>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="search"
-          placeholder="search todos"
-        />
-      </header>
-
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Read Books</span>
+    <TodoContext.Provider
+      value={{
+        todo: todoItems,
+        setTodo: setTodoItems,
+      }}
+    >
+      <div className="container">
+        {user ? (
           <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
+            <Routes>
+              <Route path="/*" element={<Todo />} />
 
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+              <Route path="todo" element={<Todo />} />
+              <Route path="about" element={<About />} />
+              <Route path="todo/:id" element={<TodoDetail />} />
+              {/* <Route path="login" element={<App />} /> */}
+
+            </Routes>
+            <FloatingButton logout={logout} />
+
           </div>
-        </li>
-      </ul>
+        ) : (
+          <Login setUser={setUser} />
+        )}
 
-      <ul className="list-group todos mx-auto text-light">
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center`}
-        >
-          <span>Sport</span>
-          <div>
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faCheck}
-              className="pointer"
-            />
-
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-            />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-          </div>
-        </li>
-      </ul>
-
-      <form className="add text-center my-4">
-        <label htmlFor="add" className="add text-light">
-          Add a new todo:
-        </label>
-        <input
-          type="text"
-          className="form-control m-auto"
-          name="add"
-          id="add"
-        />
-      </form>
-
-      {/* <form className="text-center my-4 text-light">
-        <h1 className="mb-4">Login Form</h1>
-        <input
-          type="text"
-          className={`form-control mb-2`}
-          id="email"
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          className={`form-control mb-3`}
-          id="password"
-          placeholder="Enter your Password"
-        />
-        <button type="submit" className="btn btn-dark">
-          Login
-        </button>
-      </form> */}
-
-      <FloatingButton />
-    </div>
+      </div>
+    </TodoContext.Provider>
   );
 }
 
